@@ -1,0 +1,1 @@
+Correct_V4_MASTER.ino is the user-provided master firmware (Warlock Glove V4). The existing app and code generator are NOT yet synchronized with this sketch. IMPORTANT: V4 sets NUM_LEDS=6 for all five fingers (30 physical slots), while the studio viewer maps 29 (thumb 5). Do not upload generated code without reconciling hardware count and verifying compilation.
