@@ -1,4 +1,4 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Warlock Glove Studio — Preview</title><style>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Warlock Glove Studio — Magic Cast v6.1</title><style>
 :root{color-scheme:dark;font-family:Inter,Arial,sans-serif;background:#0a111a;color:#dce7f3}*{box-sizing:border-box}body{margin:0}header{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:16px 22px;border-bottom:1px solid #263648;background:#101c2a;flex-wrap:wrap}h1{font-size:23px;letter-spacing:.04em;margin:0}small,.sub{color:#91a5ba}nav{display:flex;gap:7px;flex-wrap:wrap}button,select,input,textarea{font:inherit}button,select{background:#162738;border:1px solid #36506b;border-radius:7px;color:#e2edf8;padding:10px;cursor:pointer}button:hover,.active{background:#124d79;border-color:#2da6ff}main{display:grid;grid-template-columns:255px minmax(360px,1fr) 290px;gap:12px;padding:12px;max-width:1800px;margin:auto}.panel{background:#101b28;border:1px solid #2a3e53;border-radius:10px;padding:14px;margin-bottom:12px}h2{font-size:13px;letter-spacing:.07em;color:#b6dcf6;margin:0 0 12px}label{display:block;margin:13px 0;font-size:13px}.range{display:flex;justify-content:space-between;gap:8px}.range b{font-weight:500;color:#9fcfff}input[type=range]{width:100%;accent-color:#269ff4}#stage{height:min(68vh,720px);min-height:440px;background:radial-gradient(ellipse,#263545 0%,#0a1018 75%);position:relative;overflow:hidden;border:1px solid #33475c;border-radius:10px}canvas#viewer{width:100%;height:100%;display:block;touch-action:none}#loading{position:absolute;left:16px;top:14px;color:#b4cde0;font-size:13px;pointer-events:none}#viewbar{display:flex;gap:6px;justify-content:center;flex-wrap:wrap;margin-top:10px}#viewbar button{padding:8px 13px}.row{display:flex;gap:7px;flex-wrap:wrap}.effect{display:block;width:100%;text-align:left;margin:5px 0}.chip{width:28px;height:28px;border:1px solid #778da3;border-radius:5px;display:inline-block;vertical-align:middle}#rgb{width:90px;height:40px;vertical-align:middle;background:transparent;border:0;padding:0}#ledlist{display:none}#pixelEditor{display:none}#pixelEditor.open{display:block}#pixelEditor .minirow{display:flex;align-items:center;gap:9px;flex-wrap:wrap}#pixelEditor input[type=color]{width:55px;height:39px;background:transparent;border:0}#pixelEditor input[type=range]{flex:1;min-width:110px}#selectionTags{font-size:12px;color:#9ed5ff;line-height:1.7}#pixelEditor button{padding:8px 10px}#viewer{cursor:grab}#viewer:active{cursor:grabbing}.color-name{font-size:13px;color:#c5d6e6;margin-left:8px;vertical-align:middle}#selectionOverlay{position:absolute;inset:0;pointer-events:none;z-index:2;overflow:hidden}.pixel-ring{position:absolute;width:34px;height:34px;border:1px solid #b7e9ff80;border-radius:50%;box-shadow:0 0 11px #3fbaff55;transform:translate(-50%,-50%);animation:pixel-pop .32s cubic-bezier(.15,1.4,.35,1) both;pointer-events:none}.pixel-ring::after{content:"";position:absolute;inset:-7px;border:1px solid #80d8ff77;border-radius:50%;animation:pixel-breathe 1.8s ease-in-out infinite}.pixel-ring span{position:absolute;left:50%;top:-26px;transform:translateX(-50%);white-space:nowrap;background:transparent;color:#d9f6ff;font:600 12px Inter,Arial,sans-serif;border:0;border-radius:0;padding:0;text-shadow:0 1px 4px #000,0 0 8px #000}@keyframes pixel-pop{from{opacity:0;scale:.45}to{opacity:1;scale:1}}@keyframes pixel-breathe{50%{opacity:.3;scale:1.18}}@media(prefers-reduced-motion:reduce){.pixel-ring,.pixel-ring::after{animation:none}}#ledlist button{font-size:11px;padding:7px 3px}#code{width:100%;height:400px;resize:vertical;white-space:pre;font-family:Menlo,monospace;font-size:12px;background:#070d14;color:#c7e6ca;border:1px solid #38536b;border-radius:7px;padding:12px}#codepanel{display:none}.notice{font-size:12px;color:#aac0d5;line-height:1.55}.danger{color:#ffba96}.hidden{display:none!important}#refimg{width:100%;border-radius:6px;display:none}#refimg.show{display:block}footer{font-size:12px;color:#8fa3b9;padding:12px 20px}a{color:#81c7ff}@media(max-width:1100px){main{grid-template-columns:230px minmax(0,1fr)}aside.right{grid-column:1/-1;display:grid;grid-template-columns:1fr 1fr;gap:12px}.right .panel{margin-bottom:0}}@media(max-width:700px){main{display:block}#stage{height:470px;min-height:0}.right{display:block!important}header{padding:12px}h1{font-size:19px}}
 
 /* Arcane Studio: readable medieval-inspired display typography, modern tools */
@@ -114,8 +114,9 @@ header nav{gap:18px!important}
 #stageControls #play{font-size:17px;width:46px;padding:8px}
 #stageControls #cast{font-weight:700;letter-spacing:.07em;text-transform:uppercase;min-width:74px}
 @media(max-width:720px){#stageControls{right:12px;bottom:12px}#stageControls button{height:40px}}
-</style></head><body><header><div class="brand-lockup"><h1><span class="brand-main"><span class="brand-sigil">✧</span><span class="brand-warlock">Warlock</span></span><span class="brand-studio">Glove Studio</span></h1></div><nav><button id="showStudio" class="active">3D Studio</button><button id="showCode">Code Generator</button></nav></header><main><aside><section class="panel effect-panel"><h2>ANIMATION EFFECT</h2><div class="effect-grid"><button class="effect active" data-effect="fire" aria-label="Fire" title="Fire"><span aria-hidden="true">🔥</span></button><button class="effect" data-effect="charge" aria-label="Lightning" title="Lightning"><span aria-hidden="true">⚡</span></button><button class="effect" data-effect="rainbow" aria-label="Magic" title="Magic"><span aria-hidden="true">🌈</span></button></div><div id="effectCaption" class="effect-caption" aria-live="polite">Fire</div></section><section class="panel unified-color"><h2>COLOR STUDIO <span id="selected" class="sub">— select a pixel</span></h2><p class="notice" id="ledhelp">Click an LED on the glove to inspect its live color. Shift-click or enable Multi-select to edit several.</p><div class="row selection-tools"><button id="multiToggle" type="button" aria-pressed="false">＋ Multi-select: Off</button><button id="clearSelection" type="button">Clear selection</button></div><div id="pixelEditor"><p id="selectionTags"></p><label class="compact-bright">Pixel brightness <span id="pixelBrightLabel">100%</span><input id="pixelBright" type="range" min="0" max="100" value="100"></label><div class="row"><button id="applyPixel" type="button">Apply color</button><button id="resetPixel" type="button">Follow animation</button></div><input type="color" id="pixelColor" value="#ff7b20" class="hidden" aria-hidden="true" tabindex="-1"></div><div class="color-picker-row"><input id="rgb" type="color" value="#ff7b20" aria-label="Selected pixel color"><span id="colorName" class="color-name">Select an LED to sample its color</span></div><label>Red <input id="red" type="range" min="0" max="255" value="255"></label><label>Green <input id="green" type="range" min="0" max="255" value="123"></label><label>Blue <input id="blue" type="range" min="0" max="255" value="32"></label><p class="notice" id="colorHint">Select a pixel to sample its live color and edit it here.</p></section></aside><div><section id="stage"><div id="selectionOverlay" aria-hidden="true"></div><canvas id="viewer" aria-label="Interactive 3D glove model"></canvas><div id="loading">Loading 3D viewer…</div><img id="refimg" src="actual_glove_reference.jpg" alt="Photograph of actual right-hand glove with LEDs and wiring"><div id="stageControls" aria-label="Animation playback controls"><button id="play" type="button" aria-label="Pause animation" title="Play / Pause">⏸</button><button id="cast" type="button" title="Cast current spell">Cast</button></div></section><section id="codepanel" class="panel"><h2>CODE GENERATOR</h2><p class="notice">Generate an Arduino sketch from your current effect, speed, brightness, flame limit, flicker, and color settings. The generator is an experimental translation of the current controls; the Original Source button displays your uploaded Correct V4 master firmware. Pixel overrides are preview-only and are not exported to firmware.</p><div class="row" style="margin:12px 0"><button id="generateCode" type="button" class="generate-btn">✧ Generate Arduino Code</button><span id="generatorStatus" class="notice" aria-live="polite">Generate to update the source below.</span></div><textarea id="code" spellcheck="false"></textarea><div class="row" style="margin-top:9px"><button id="saveCode">Download generated .ino</button><button id="restoreCode">View original source</button></div><p class="notice danger">The generated sketch uses five thumb LEDs and six on each other finger (29 total). Check pin assignments, library versions and gesture behavior before uploading to hardware.</p></section></div><aside class="right"><section class="panel"><h2>ANIMATION CONTROLS</h2><label><span class="range">Speed <b id="speedV">1.0×</b></span><input id="speed" type="range" min="1" max="30" value="10"></label><label><span class="range">Brightness <b id="brightV">85%</b></span><input id="bright" type="range" min="0" max="100" value="85"></label><label><span class="range">Flame limit <b id="heightV">5</b></span><input id="height" type="range" min="1" max="6" value="5"></label><label><span class="range">Flicker <b id="flickerV">60%</b></span><input id="flicker" type="range" min="0" max="100" value="60"></label><p class="notice">Fire, Lightning Cast, and Magic can load deeper animation profiles from JSON. Magic uses its own pulse and shimmer profile; Speed scales its timing and Brightness scales the whole effect.</p><div class="animation-io">
+</style></head><body><header><div class="brand-lockup"><h1><span class="brand-main"><span class="brand-sigil">✧</span><span class="brand-warlock">Warlock</span></span><span class="brand-studio">Glove Studio</span></h1></div><nav><button id="showStudio" class="active">3D Studio</button><button id="showCode">Code Generator</button></nav></header><main><aside><section class="panel effect-panel"><h2>ANIMATION EFFECT</h2><div class="effect-grid"><button class="effect active" data-effect="fire" aria-label="Fire" title="Fire"><span aria-hidden="true">🔥</span></button><button class="effect" data-effect="charge" aria-label="Lightning" title="Lightning"><span aria-hidden="true">⚡</span></button><button class="effect" data-effect="rainbow" aria-label="Magic" title="Magic"><span aria-hidden="true">🌈</span></button></div><div id="effectCaption" class="effect-caption" aria-live="polite">Fire</div></section><section class="panel unified-color"><h2>COLOR STUDIO <span id="selected" class="sub">— select a pixel</span></h2><p class="notice" id="ledhelp">Click an LED on the glove to inspect its live color. Shift-click or enable Multi-select to edit several.</p><div class="row selection-tools"><button id="multiToggle" type="button" aria-pressed="false">＋ Multi-select: Off</button><button id="clearSelection" type="button">Clear selection</button></div><div id="pixelEditor"><p id="selectionTags"></p><label class="compact-bright">Pixel brightness <span id="pixelBrightLabel">100%</span><input id="pixelBright" type="range" min="0" max="100" value="100"></label><div class="row"><button id="applyPixel" type="button">Apply color</button><button id="resetPixel" type="button">Follow animation</button></div><input type="color" id="pixelColor" value="#ff7b20" class="hidden" aria-hidden="true" tabindex="-1"></div><div class="color-picker-row"><input id="rgb" type="color" value="#ff7b20" aria-label="Selected pixel color"><span id="colorName" class="color-name">Select an LED to sample its color</span></div><label>Red <input id="red" type="range" min="0" max="255" value="255"></label><label>Green <input id="green" type="range" min="0" max="255" value="123"></label><label>Blue <input id="blue" type="range" min="0" max="255" value="32"></label><p class="notice" id="colorHint">Select a pixel to sample its live color and edit it here.</p></section></aside><div><section id="stage"><div id="selectionOverlay" aria-hidden="true"></div><canvas id="viewer" aria-label="Interactive 3D glove model"></canvas><div id="loading">Loading 3D viewer…</div><img id="refimg" src="actual_glove_reference.jpg" alt="Photograph of actual right-hand glove with LEDs and wiring"><div id="stageControls" aria-label="Animation playback controls"><button id="play" type="button" aria-label="Pause animation" title="Play / Pause">⏸</button><button id="cast" type="button" title="Cast current spell">Cast</button></div></section><section id="codepanel" class="panel"><h2>CODE GENERATOR</h2><p class="notice">Generate an Arduino sketch from your current effect, speed, brightness, flame limit, flicker, and color settings. The generator is an experimental translation of the current controls; the Original Source button displays your uploaded Correct V4 master firmware. Pixel overrides are preview-only and are not exported to firmware.</p><div class="row" style="margin:12px 0"><button id="generateCode" type="button" class="generate-btn">✧ Generate Arduino Code</button><span id="generatorStatus" class="notice" aria-live="polite">Generate to update the source below.</span></div><textarea id="code" spellcheck="false"></textarea><div class="row" style="margin-top:9px"><button id="saveCode">Download generated .ino</button><button id="restoreCode">View original source</button></div><p class="notice danger">The generated sketch uses five thumb LEDs and six on each other finger (29 total). Check pin assignments, library versions and gesture behavior before uploading to hardware.</p></section></div><aside class="right"><section class="panel"><h2>ANIMATION CONTROLS</h2><label><span class="range">Speed <b id="speedV">1.0×</b></span><input id="speed" type="range" min="1" max="30" value="10"></label><label><span class="range">Brightness <b id="brightV">85%</b></span><input id="bright" type="range" min="0" max="100" value="85"></label><label><span class="range">Flame limit <b id="heightV">5</b></span><input id="height" type="range" min="1" max="6" value="5"></label><label><span class="range">Flicker <b id="flickerV">60%</b></span><input id="flicker" type="range" min="0" max="100" value="60"></label><p class="notice">Fire, Lightning Cast, and Magic can load deeper animation profiles from JSON. Magic uses its own pulse, shimmer, and Cast profile; Speed scales preview timing and Brightness scales the whole effect.</p><div class="animation-io">
 <h3>ANIMATION FILES</h3>
+<p class="notice" style="text-align:center;color:#c8e9b7;margin:2px 0 12px">BUILD 6.1 · Magic Prism Shimmer Cast · JSON v1–v6</p>
 <p class="notice">Save or load your preview settings. Save or load preview profiles. Fire profiles can change flame behavior; Lightning profiles can change the Cast strike behavior while leaving the standby charge untouched. This does not import Arduino code or change the firmware.</p>
 <div class="row"><button id="importAnimation" type="button">Import animation</button><button id="exportAnimation" type="button">Export animation</button></div>
 <input type="file" id="animationFile" accept=".json,application/json" hidden>
@@ -399,16 +400,72 @@ window.getWarlockLightningProfile=()=>JSON.parse(JSON.stringify(lightningProfile
 window.setWarlockLightningProfile=p=>{lightningProfile=normalizeLightningProfile(p);lightningCastPlan=null;return lightningProfile};
 
 // MAGIC / RAINBOW STANDBY PROFILE
-// A shared 1.25 s breathing pulse from 50% to 90% brightness, with most pixels
+// A shared 1.25 s breathing pulse from 15% to 90% brightness, with most pixels
 // staying near a 4500 K white while a small random subset softly shimmers through
 // rainbow colors. Shimmer colors are always multiplied by the same global pulse.
 const DEFAULT_MAGIC_PROFILE={
  name:'4500K Prism Shimmer v1',
  baseColor:[255,218,187],
- pulse:{periodSeconds:1.25,minBrightness:.50,maxBrightness:.90,easePower:1.18},
+ pulse:{periodSeconds:1.25,minBrightness:.15,maxBrightness:.90,easePower:1.18},
  shimmer:{rainbowShare:.20,windowSeconds:.22,crossfade:.78,saturation:.92,hueDriftDegreesPerSecond:24,minColorMix:.72,maxColorMix:1.0}
 };
+const DEFAULT_MAGIC_CAST_PROFILE={
+ name:'Fingertip Collapse + White Ascension v1',
+ collapseSeconds:1.50,
+ darkHoldSeconds:.75,
+ blastSeconds:1.00,
+ riseFraction:.28,
+ fullWhiteHoldFraction:.12,
+ edgeSoftness:.22,
+ blastColor:[255,255,255]
+};
+let magicCastProfile=JSON.parse(JSON.stringify(DEFAULT_MAGIC_CAST_PROFILE));
+function normalizeMagicCastProfile(p){
+ const d=DEFAULT_MAGIC_CAST_PROFILE;
+ return {name:typeof p?.name==='string'?p.name.slice(0,80):d.name,
+  collapseSeconds:normNum(p?.collapseSeconds,d.collapseSeconds,.3,5),
+  darkHoldSeconds:normNum(p?.darkHoldSeconds,d.darkHoldSeconds,0,2),
+  blastSeconds:normNum(p?.blastSeconds,d.blastSeconds,.25,4),
+  riseFraction:normNum(p?.riseFraction,d.riseFraction,.08,.65),
+  fullWhiteHoldFraction:normNum(p?.fullWhiteHoldFraction,d.fullWhiteHoldFraction,0,.4),
+  edgeSoftness:normNum(p?.edgeSoftness,d.edgeSoftness,.04,.6),
+  blastColor:normalizeRgb(p?.blastColor,d.blastColor)};
+}
+function magicCastDuration(){return magicCastProfile.collapseSeconds+magicCastProfile.darkHoldSeconds+magicCastProfile.blastSeconds}
+function magicCastPixel(f,p,count,age,standbyA,standbyC){
+ const cp=magicCastProfile,pos=count<=1?0:p/(count-1),soft=cp.edgeSoftness;
+ // Phase 1: the existing shimmering field collapses from fingertips toward the palm.
+ if(age<cp.collapseSeconds){
+   const u=clamp(age/cp.collapseSeconds,0,1),front=1-u;
+   const remain=smooth01(clamp((front-pos+soft)/soft,0,1));
+   return {a:standbyA*remain,c:standbyC};
+ }
+ age-=cp.collapseSeconds;
+ // Phase 2: complete darkness before the release.
+ if(age<cp.darkHoldSeconds)return {a:0,c:cp.blastColor};
+ age-=cp.darkHoldSeconds;
+ const u=clamp(age/cp.blastSeconds,0,1);
+ const riseEnd=cp.riseFraction,holdEnd=Math.min(.9,riseEnd+cp.fullWhiteHoldFraction);
+ // Phase 3a: white energy originates at the palm and fills outward to every fingertip.
+ if(u<riseEnd){
+   const front=u/riseEnd;
+   const fill=smooth01(clamp((front-pos+soft)/soft,0,1));
+   // Pixels behind the expanding front are immediately at maximum white.
+   // Only the moving edge is feathered spatially.
+   return {a:fill,c:cp.blastColor};
+ }
+ // Brief full-white crest so the whole glove reads as one blast.
+ if(u<holdEnd)return {a:1,c:cp.blastColor};
+ // Phase 3b: the white release exits from palm to fingertips. Base pixels vanish first;
+ // the fingertips are the last light visible, making the blast appear to leave the hand.
+ const exit=clamp((u-holdEnd)/(1-holdEnd),0,1);
+ const remain=smooth01(clamp((pos-exit+soft)/soft,0,1));
+ return {a:remain,c:cp.blastColor};
+}
+window.getWarlockMagicCastProfile=()=>magicEngine==='prism'?JSON.parse(JSON.stringify(magicCastProfile)):null;
+window.setWarlockMagicCastProfile=p=>{magicCastProfile=normalizeMagicCastProfile(p);return magicCastProfile};
 let magicProfile=JSON.parse(JSON.stringify(DEFAULT_MAGIC_PROFILE));
+let magicEngine='legacy';
 function normalizeRgb(v,d){return Array.isArray(v)&&v.length===3?v.map((x,i)=>Math.round(normNum(x,d[i],0,255))):[...d]}
 function normalizeMagicProfile(p){
  const d=DEFAULT_MAGIC_PROFILE,pu=(p&&p.pulse)||{},sh=(p&&p.shimmer)||{};
@@ -420,7 +477,7 @@ function normalizeMagicProfile(p){
 function smooth01(x){x=clamp(x,0,1);return x*x*(3-2*x)}
 function magicStandbyPixel(f,p,t){
  const mp=magicProfile,period=Math.max(.05,mp.pulse.periodSeconds),phase=(t%period)/period;
- // cosine starts low, reaches the 90% crest halfway through, then settles back to 50%
+ // cosine starts low, reaches the 90% crest halfway through, then settles back to 15%
  let breath=.5-.5*Math.cos(phase*Math.PI*2);breath=Math.pow(breath,mp.pulse.easePower);
  const pulse=mp.pulse.minBrightness+(mp.pulse.maxBrightness-mp.pulse.minBrightness)*breath;
  const idx=f*7+p,win=Math.max(.04,mp.shimmer.windowSeconds),bucket=Math.floor(t/win),u=(t/win)-bucket;
@@ -439,18 +496,18 @@ function magicStandbyPixel(f,p,t){
  const color=[0,1,2].map(i=>Math.round(mp.baseColor[i]*(1-mix)+rainbow[i]*mix));
  return {a:pulse,c:color};
 }
-window.getWarlockMagicProfile=()=>JSON.parse(JSON.stringify(magicProfile));
-window.setWarlockMagicProfile=p=>{magicProfile=normalizeMagicProfile(p);return magicProfile};
+window.getWarlockMagicProfile=()=>magicEngine==='prism'?JSON.parse(JSON.stringify(magicProfile)):null;
+window.setWarlockMagicProfile=p=>{magicProfile=normalizeMagicProfile(p);magicEngine='prism';elapsed=0;state.playing=true;$('play').textContent='⏸';$('play').setAttribute('aria-label','Pause animation');return magicProfile};
 function hsv(h,s,v){let i=Math.floor(h*6),f=h*6-i,p=v*(1-s),q=v*(1-f*s),t=v*(1-(1-f)*s);return [[v,t,p],[q,v,p],[p,v,t],[p,q,v],[t,p,v],[v,p,q]][i%6].map(x=>Math.round(x*255))}
 function drawLEDs(){if(!emitters)return;for(const id of ledIds){const m=emitters[id];if(!m)continue;const parts=id.split('_'),f=['THUMB','INDEX','MIDDLE','RING','PINKY'].indexOf(parts[1]),p=+parts[2]-1,count=f===0?5:6,t=elapsed*state.speed;let a=0,c=state.color;
  if(state.effect==='fire'){c=firePixels[f][p];a=1}
  else if(state.effect==='charge'){a=.2+.55*(.5+.5*Math.sin(t*3+f*.6));c=[65,155,255]}
- else if(state.effect==='rainbow'){const magic=magicStandbyPixel(f,p,t);a=magic.a;c=magic.c}
+ else if(state.effect==='rainbow'){if(magicEngine==='prism'){const magic=magicStandbyPixel(f,p,t);a=magic.a;c=magic.c}else{a=.9;c=hsv(((t*65+f*45+p*30)%360)/360,1,1)}}
  else if(state.effect==='solid')a=1;
  // CAST is a temporary overlay, never a change of standby mode.
  if(castStart>=0 && castMode===state.effect){
    const age=(elapsed-castStart)*Math.max(.35,state.speed);
-   const duration=castMode==='rainbow'?1.65:castMode==='charge'?(lightningCastPlan?.total||1.45):1.15;
+   const duration=castMode==='rainbow'&&magicEngine==='prism'?magicCastDuration():castMode==='rainbow'?1.65:castMode==='charge'?(lightningCastPlan?.total||1.45):1.15;
    if(age>=duration){const endedMode=castMode;castStart=-1;castMode=null;if(endedMode==='charge')lightningCastPlan=null;}
    else if(castMode==='fire'){
      // Ignition at the base, a broad irregular fireball, then ember decay.
@@ -461,11 +518,15 @@ function drawLEDs(){if(!emitters)return;for(const id of ledIds){const m=emitters
    }else if(castMode==='charge'){
      const bolt=lightningCastPixel(f,p,age);a=bolt.a;c=bolt.c;
    }else if(castMode==='rainbow'){
-     // Full-hand expanding rainbow pulse, with smooth bright crest.
-     const pulse=Math.pow(Math.max(0,Math.sin(Math.PI*age/duration)),1.4);
-     const ring=Math.max(0,1-Math.abs(p-(age/duration)*8)/3);
-     a=Math.max(a*.55,Math.min(1,.25+pulse*.8+ring*.4));
-     c=hsv(((age*180+f*52+p*28)%360)/360,1,1);
+     if(magicEngine==='prism'){
+       const spell=magicCastPixel(f,p,count,age,a,c);a=spell.a;c=spell.c;
+     }else{
+       // Legacy full-hand rainbow pulse.
+       const pulse=Math.pow(Math.max(0,Math.sin(Math.PI*age/duration)),1.4);
+       const ring=Math.max(0,1-Math.abs(p-(age/duration)*8)/3);
+       a=Math.max(a*.55,Math.min(1,.25+pulse*.8+ring*.4));
+       c=hsv(((age*180+f*52+p*28)%360)/360,1,1);
+     }
    }
  }
  let gain=Math.max(0,Math.min(1,a*state.brightness));let override=pixelOverrides[id];m.lit=override?override.color.map(v=>v/255*override.brightness):c.map(v=>v/255*gain)
@@ -539,22 +600,22 @@ const fields={speed:[1,30],bright:[0,100],height:[1,6],flicker:[0,100]};
 const effects=["fire","charge","rainbow"];
 function save(){
  const effect=document.querySelector(".effect.active")?.dataset.effect||"fire";
- const data={format:"warlock-studio-animation",version:4,effect,
+ const data={format:"warlock-studio-animation",version:6,effect,
  controls:Object.fromEntries(Object.keys(fields).map(k=>[k,Number($(k).value)]))};
- if(effect==="fire"&&window.getWarlockFireProfile)data.fireProfile=window.getWarlockFireProfile();if(effect==="charge"&&window.getWarlockLightningProfile)data.lightningProfile=window.getWarlockLightningProfile();if(effect==="rainbow"&&window.getWarlockMagicProfile)data.magicProfile=window.getWarlockMagicProfile();
+ if(effect==="fire"&&window.getWarlockFireProfile)data.fireProfile=window.getWarlockFireProfile();if(effect==="charge"&&window.getWarlockLightningProfile)data.lightningProfile=window.getWarlockLightningProfile();if(effect==="rainbow"&&window.getWarlockMagicProfile){const mp=window.getWarlockMagicProfile();if(mp){data.engine="magic-prism-shimmer-v2";data.magicProfile=mp;if(window.getWarlockMagicCastProfile)data.magicCastProfile=window.getWarlockMagicCastProfile();}}
  const blob=new Blob([JSON.stringify(data,null,2)+"\n"],{type:"application/json"});
  const url=URL.createObjectURL(blob),a=document.createElement("a");
  a.href=url;a.download="warlock-"+effect+"-animation.json";a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
  status.textContent="Animation exported. Share this JSON with ChatGPT when you want another refinement.";
 }
 function load(data){
- if(!data||data.format!=="warlock-studio-animation"||![1,2,3,4].includes(data.version)||!effects.includes(data.effect)||!data.controls||typeof data.controls!=="object")throw Error("This is not a supported Warlock Studio animation file.");
+ if(!data||data.format!=="warlock-studio-animation"||![1,2,3,4,5,6].includes(data.version)||!effects.includes(data.effect)||!data.controls||typeof data.controls!=="object")throw Error("This is not a supported Warlock Studio animation file.");
  const values={};for(const [key,[min,max]] of Object.entries(fields)){const v=data.controls[key];if(typeof v!=="number"||!Number.isFinite(v)||!Number.isInteger(v)||v<min||v>max)throw Error("Invalid "+key+" setting; the current animation was not changed.");values[key]=v;}
- if(data.effect==="fire"&&data.fireProfile&&window.setWarlockFireProfile)window.setWarlockFireProfile(data.fireProfile);if(data.effect==="charge"&&data.lightningProfile&&window.setWarlockLightningProfile)window.setWarlockLightningProfile(data.lightningProfile);if(data.effect==="rainbow"&&data.magicProfile&&window.setWarlockMagicProfile)window.setWarlockMagicProfile(data.magicProfile);
+ if(data.effect==="fire"&&data.fireProfile&&window.setWarlockFireProfile)window.setWarlockFireProfile(data.fireProfile);if(data.effect==="charge"&&data.lightningProfile&&window.setWarlockLightningProfile)window.setWarlockLightningProfile(data.lightningProfile);if(data.effect==="rainbow"&&data.magicProfile&&window.setWarlockMagicProfile)window.setWarlockMagicProfile(data.magicProfile);if(data.effect==="rainbow"&&data.magicCastProfile&&window.setWarlockMagicCastProfile)window.setWarlockMagicCastProfile(data.magicCastProfile);
  const button=document.querySelector('[data-effect="'+data.effect+'"]');button.click();
  for(const [key,value] of Object.entries(values)){$(key).value=String(value);$(key).dispatchEvent(new Event("input",{bubbles:true}));}
  const profileName=data.effect==="fire"&&data.fireProfile?.name?" — "+data.fireProfile.name:(data.effect==="charge"&&data.lightningProfile?.name?" — "+data.lightningProfile.name:(data.effect==="rainbow"&&data.magicProfile?.name?" — "+data.magicProfile.name:""));
- status.textContent="Imported "+({fire:"Fire",charge:"Lightning",rainbow:"Magic"}[data.effect])+profileName+". Preview updated.";
+ status.textContent="Imported "+({fire:"Fire",charge:"Lightning",rainbow:"Magic"}[data.effect])+profileName+". Deep profile ACTIVE — preview updated.";if(data.effect==="rainbow"&&data.magicProfile){$("effectCaption").textContent="Magic · Prism Shimmer";}
 }
 $("exportAnimation").addEventListener("click",save);$("importAnimation").addEventListener("click",()=>file.click());
 file.addEventListener("change",async()=>{const chosen=file.files&&file.files[0];if(!chosen)return;try{if(chosen.size>65536)throw Error("File is too large for an animation settings file.");load(JSON.parse(await chosen.text()));}catch(e){status.textContent="Import failed: "+e.message;}finally{file.value="";}});
