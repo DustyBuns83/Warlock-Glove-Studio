@@ -1,0 +1,64 @@
+{
+  "format": "warlock-studio-animation",
+  "version": 3,
+  "effect": "charge",
+  "controls": {
+    "speed": 10,
+    "bright": 100,
+    "height": 5,
+    "flicker": 72
+  },
+  "lightningProfile": {
+    "name": "Cloud-to-Ground Chaos v1",
+    "palette": {
+      "core": [
+        248,
+        253,
+        255
+      ],
+      "edge": [
+        142,
+        210,
+        255
+      ],
+      "electric": [
+        50,
+        112,
+        255
+      ],
+      "deep": [
+        8,
+        24,
+        112
+      ]
+    },
+    "cast": {
+      "chargeSeconds": 0.58,
+      "leaderSeconds": 0.24,
+      "leaderDensity": 0.34,
+      "strokeCount": [
+        3,
+        4
+      ],
+      "strokeDuration": [
+        0.024,
+        0.046
+      ],
+      "interStrokeGap": [
+        0.032,
+        0.078
+      ],
+      "activeFingerRange": [
+        3,
+        5
+      ],
+      "minChannelPixels": 3,
+      "pathPersistence": 0.8,
+      "pathShiftChance": 0.28,
+      "globalFlash": 0.38,
+      "afterglowSeconds": 0.28,
+      "residualSparkChance": 0.12
+    }
+  },
+  "notes": "Lightning Cast profile: preserves the existing blue charge feel, then adds a fragmented stepped-leader phase, an explosive white return stroke, irregular dark gaps, 2\u20133 weaker re-strikes, occasional path shifts/forks, and a short blue ionized afterglow. Based on cloud-to-ground slow-motion/high-speed references."
+}

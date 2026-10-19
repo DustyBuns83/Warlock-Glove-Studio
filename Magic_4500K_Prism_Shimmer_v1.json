@@ -1,0 +1,34 @@
+{
+  "format": "warlock-studio-animation",
+  "version": 4,
+  "effect": "rainbow",
+  "controls": {
+    "speed": 10,
+    "bright": 100,
+    "height": 5,
+    "flicker": 60
+  },
+  "magicProfile": {
+    "name": "4500K Prism Shimmer v1",
+    "baseColor": [
+      255,
+      218,
+      187
+    ],
+    "pulse": {
+      "periodSeconds": 1.25,
+      "minBrightness": 0.5,
+      "maxBrightness": 0.9,
+      "easePower": 1.18
+    },
+    "shimmer": {
+      "rainbowShare": 0.2,
+      "windowSeconds": 0.22,
+      "crossfade": 0.78,
+      "saturation": 0.92,
+      "hueDriftDegreesPerSecond": 24,
+      "minColorMix": 0.72,
+      "maxColorMix": 1.0
+    }
+  }
+}

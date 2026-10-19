@@ -1,0 +1,12 @@
+Magic / Rainbow standby — 4500K Prism Shimmer v1
+
+Design target:
+- 1.25 second full breathing cycle: 50% -> 90% -> 50%
+- Approximately 80% of LEDs remain near a 4500 K white base
+- Approximately 20% become smoothly changing rainbow shimmer pixels
+- Shimmer pixels follow the same global brightness pulse; they do not flash independently
+- Random targets crossfade instead of snapping to reduce digital-looking flicker
+- Speed slider scales the pulse/shimmer timing; Brightness scales the entire effect
+
+The existing Magic Cast routine is intentionally unchanged in this revision.
+Correct_V4_MASTER.ino is preserved untouched as the firmware reference.

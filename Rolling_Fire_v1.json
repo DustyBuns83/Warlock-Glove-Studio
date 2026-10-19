@@ -1,0 +1,95 @@
+{
+  "format": "warlock-studio-animation",
+  "version": 2,
+  "effect": "fire",
+  "controls": {
+    "speed": 9,
+    "bright": 92,
+    "height": 6,
+    "flicker": 82
+  },
+  "fireProfile": {
+    "name": "Rolling Fire v1 \u2014 Natural Lick",
+    "palette": [
+      [
+        64,
+        5,
+        0
+      ],
+      [
+        135,
+        13,
+        0
+      ],
+      [
+        214,
+        38,
+        0
+      ],
+      [
+        255,
+        83,
+        0
+      ],
+      [
+        255,
+        151,
+        16
+      ],
+      [
+        255,
+        218,
+        92
+      ]
+    ],
+    "base": {
+      "depthWeights": [
+        0.22,
+        0.58,
+        0.2
+      ],
+      "retargetFrames": [
+        7,
+        18
+      ],
+      "easing": 0.22,
+      "intensity": [
+        38,
+        142
+      ],
+      "quietChance": 0.045,
+      "quietFrames": [
+        5,
+        15
+      ],
+      "quietScale": 0.3
+    },
+    "flame": {
+      "ignitionPerThousand": 11,
+      "speed": [
+        0.045,
+        0.125
+      ],
+      "intensity": [
+        112,
+        205
+      ],
+      "decay": [
+        0.18,
+        0.62
+      ],
+      "heightWeights": [
+        0.28,
+        0.34,
+        0.26,
+        0.12
+      ],
+      "brightnessJitter": [
+        0.68,
+        1.18
+      ],
+      "dropoutChance": 0.075
+    }
+  },
+  "notes": "Designed from multiple close-up fire references: rolling 2\u20134 LED base, independent tongues, rare tall reaches, warm red/orange/amber/yellow palette, and intermittent dark gaps. Import into the v2-capable Warlock Glove Studio included with this profile."
+}

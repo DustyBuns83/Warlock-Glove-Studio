@@ -1,0 +1,14 @@
+Cloud-to-Ground Chaos v1
+
+This profile changes ONLY the Lightning Cast preview. The Lightning standby/charge look remains the same.
+
+Visual model:
+- magical blue charge (preserved)
+- broken stepped-leader fragments
+- white-hot primary return stroke across irregular finger branches
+- near-dark gaps
+- 2–3 weaker re-strikes, usually reusing the path but sometimes shifting/forking
+- short electric-blue channel afterglow
+
+The JSON controls the simulator cast algorithm. Correct_V4_MASTER.ino is preserved unchanged.
+No firmware is flashed or modified by importing this JSON.
