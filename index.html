@@ -1,0 +1,318 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Warlock Glove Studio — Preview</title><style>
+:root{color-scheme:dark;font-family:Inter,Arial,sans-serif;background:#0a111a;color:#dce7f3}*{box-sizing:border-box}body{margin:0}header{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:16px 22px;border-bottom:1px solid #263648;background:#101c2a;flex-wrap:wrap}h1{font-size:23px;letter-spacing:.04em;margin:0}small,.sub{color:#91a5ba}nav{display:flex;gap:7px;flex-wrap:wrap}button,select,input,textarea{font:inherit}button,select{background:#162738;border:1px solid #36506b;border-radius:7px;color:#e2edf8;padding:10px;cursor:pointer}button:hover,.active{background:#124d79;border-color:#2da6ff}main{display:grid;grid-template-columns:255px minmax(360px,1fr) 290px;gap:12px;padding:12px;max-width:1800px;margin:auto}.panel{background:#101b28;border:1px solid #2a3e53;border-radius:10px;padding:14px;margin-bottom:12px}h2{font-size:13px;letter-spacing:.07em;color:#b6dcf6;margin:0 0 12px}label{display:block;margin:13px 0;font-size:13px}.range{display:flex;justify-content:space-between;gap:8px}.range b{font-weight:500;color:#9fcfff}input[type=range]{width:100%;accent-color:#269ff4}#stage{height:min(68vh,720px);min-height:440px;background:radial-gradient(ellipse,#263545 0%,#0a1018 75%);position:relative;overflow:hidden;border:1px solid #33475c;border-radius:10px}canvas#viewer{width:100%;height:100%;display:block;touch-action:none}#loading{position:absolute;left:16px;top:14px;color:#b4cde0;font-size:13px;pointer-events:none}#viewbar{display:flex;gap:6px;justify-content:center;flex-wrap:wrap;margin-top:10px}#viewbar button{padding:8px 13px}.row{display:flex;gap:7px;flex-wrap:wrap}.effect{display:block;width:100%;text-align:left;margin:5px 0}.chip{width:28px;height:28px;border:1px solid #778da3;border-radius:5px;display:inline-block;vertical-align:middle}#rgb{width:90px;height:40px;vertical-align:middle;background:transparent;border:0;padding:0}#ledlist{display:none}#pixelEditor{display:none}#pixelEditor.open{display:block}#pixelEditor .minirow{display:flex;align-items:center;gap:9px;flex-wrap:wrap}#pixelEditor input[type=color]{width:55px;height:39px;background:transparent;border:0}#pixelEditor input[type=range]{flex:1;min-width:110px}#selectionTags{font-size:12px;color:#9ed5ff;line-height:1.7}#pixelEditor button{padding:8px 10px}#viewer{cursor:grab}#viewer:active{cursor:grabbing}.color-name{font-size:13px;color:#c5d6e6;margin-left:8px;vertical-align:middle}#selectionOverlay{position:absolute;inset:0;pointer-events:none;z-index:2;overflow:hidden}.pixel-ring{position:absolute;width:34px;height:34px;border:1px solid #b7e9ff80;border-radius:50%;box-shadow:0 0 11px #3fbaff55;transform:translate(-50%,-50%);animation:pixel-pop .32s cubic-bezier(.15,1.4,.35,1) both;pointer-events:none}.pixel-ring::after{content:"";position:absolute;inset:-7px;border:1px solid #80d8ff77;border-radius:50%;animation:pixel-breathe 1.8s ease-in-out infinite}.pixel-ring span{position:absolute;left:50%;top:-26px;transform:translateX(-50%);white-space:nowrap;background:transparent;color:#d9f6ff;font:600 12px Inter,Arial,sans-serif;border:0;border-radius:0;padding:0;text-shadow:0 1px 4px #000,0 0 8px #000}@keyframes pixel-pop{from{opacity:0;scale:.45}to{opacity:1;scale:1}}@keyframes pixel-breathe{50%{opacity:.3;scale:1.18}}@media(prefers-reduced-motion:reduce){.pixel-ring,.pixel-ring::after{animation:none}}#ledlist button{font-size:11px;padding:7px 3px}#code{width:100%;height:400px;resize:vertical;white-space:pre;font-family:Menlo,monospace;font-size:12px;background:#070d14;color:#c7e6ca;border:1px solid #38536b;border-radius:7px;padding:12px}#codepanel{display:none}.notice{font-size:12px;color:#aac0d5;line-height:1.55}.danger{color:#ffba96}.hidden{display:none!important}#refimg{width:100%;border-radius:6px;display:none}#refimg.show{display:block}footer{font-size:12px;color:#8fa3b9;padding:12px 20px}a{color:#81c7ff}@media(max-width:1100px){main{grid-template-columns:230px minmax(0,1fr)}aside.right{grid-column:1/-1;display:grid;grid-template-columns:1fr 1fr;gap:12px}.right .panel{margin-bottom:0}}@media(max-width:700px){main{display:block}#stage{height:470px;min-height:0}.right{display:block!important}header{padding:12px}h1{font-size:19px}}
+
+/* Arcane Studio: readable medieval-inspired display typography, modern tools */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&display=swap');
+header{background:linear-gradient(110deg,#111b27 0%,#171d2a 55%,#121c29 100%);border-bottom:1px solid #6d604a77;padding:17px 24px}
+h1{font-family:Cinzel,Georgia,serif;font-size:clamp(21px,2.4vw,33px);font-weight:600;letter-spacing:.015em;text-transform:none;line-height:1.12}
+.brand-sigil{color:#d7b978;font-size:1.1em;margin-right:5px}.brand-warlock{color:#eee4d3}.brand-studio{color:#cbbfae;font-size:.72em;letter-spacing:.06em}
+header .sub{font-size:10px;letter-spacing:.2em;color:#ad9d83;margin-top:7px}.brand-dot{color:#a98953;margin:0 6px}
+nav button{border-color:#4c4d4b;background:#1b2633;font-size:13px;padding:10px 15px}nav button.active{background:#3b3934;border-color:#b6a07a;color:#f3e5c7}
+h2{font-size:12px;letter-spacing:.14em;color:#d3c19c}
+.effect-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.effect-grid .effect{display:flex;justify-content:center;align-items:center;min-height:88px;margin:0;border-radius:12px;background:linear-gradient(150deg,#1c2938,#121c28);border:1px solid #435164;transition:transform .16s ease,border-color .16s ease,background .16s ease}
+.effect-grid .effect span{font-size:42px;line-height:1;filter:drop-shadow(0 3px 7px #0008)}
+.effect-grid .effect:hover{transform:translateY(-2px);border-color:#d0b37e}
+.effect-grid .effect.active{background:linear-gradient(150deg,#39372f,#242c37);border:2px solid #d2b477;box-shadow:inset 0 0 0 1px #cfb77a44}
+.effect-caption{text-align:center;font-size:12px;color:#bdb5a7;letter-spacing:.07em;margin-top:12px;min-height:18px}
+.generate-btn{background:#51432e;border-color:#c6a46c;color:#fff1d6;font-weight:600}
+.generate-btn:hover{background:#6c5737;border-color:#e4c18b}
+@media(max-width:700px){header{padding:14px}.effect-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.effect-grid .effect{min-height:67px}.effect-grid .effect span{font-size:30px}}
+
+/* Refined ornamental masthead: framed title, open header, readable navigation */
+header{background:radial-gradient(ellipse at 50% 0%,#28303a 0%,#111b27 68%,#101925 100%);border-bottom:1px solid #8e765333}
+.brand-lockup{width:auto;max-width:calc(100% - 16px);padding:15px 44px 18px;position:relative;border:2px solid #a58a5e;border-radius:2px;background:linear-gradient(145deg,#20263499,#141d2b99);box-shadow:inset 0 0 0 4px #101924,inset 0 0 0 5px #6c5a3eaa,0 9px 22px #0005;clip-path:polygon(14px 0,calc(100% - 14px) 0,100% 14px,100% calc(100% - 14px),calc(100% - 14px) 100%,14px 100%,0 calc(100% - 14px),0 14px)}
+.brand-lockup::before,.brand-lockup::after{content:'◆';position:absolute;top:50%;transform:translateY(-50%);color:#c4a471;font-size:11px;opacity:.85}
+.brand-lockup::before{left:15px}.brand-lockup::after{right:15px}
+.brand-lockup h1{align-items:flex-start!important}
+.brand-main{width:100%}
+.brand-studio{align-self:flex-start;margin-left:clamp(92px,10.2vw,154px);white-space:nowrap}
+header .brand-sigil{filter:drop-shadow(0 0 6px #a87a3580)}
+#effectCaption{font-family:Cinzel,Georgia,serif;font-size:14px;letter-spacing:.08em;color:#e0c99e}
+.effect-panel h2{text-align:center}
+@media(max-width:700px){.brand-lockup{padding:13px 25px 15px}.brand-lockup::before{left:7px}.brand-lockup::after{right:7px}.brand-studio{margin-left:clamp(75px,17vw,115px);font-size:15px!important;letter-spacing:.1em!important}}
+/* Clean centered arcane masthead */
+header{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:24px 16px 16px;text-align:center}
+.brand-lockup{width:100%;display:flex;justify-content:center}
+.brand-lockup h1{display:flex;flex-direction:column;align-items:center;line-height:1.02;margin:0}
+.brand-main{display:flex;align-items:center;justify-content:center;gap:12px}
+.brand-warlock{font-size:clamp(34px,5vw,66px);font-weight:700;letter-spacing:.035em;text-shadow:0 2px 16px #0009}
+.brand-sigil{font-size:clamp(36px,5vw,64px);margin:0;color:#d6b77e}
+.brand-studio{font-family:Cinzel,Georgia,serif;font-size:clamp(15px,1.7vw,23px);letter-spacing:.19em;margin-top:4px;color:#d7c5a7}
+header nav{justify-content:center}
+header nav button{min-width:125px}
+@media(max-width:700px){header{padding:18px 10px 13px;gap:10px}.brand-main{gap:7px}.brand-warlock{font-size:38px}.brand-sigil{font-size:40px}}
+
+/* Floating title: no full-width masthead, compact engraved wordmark */
+header{
+  background:transparent!important;
+  border:0!important;
+  border-bottom:0!important;
+  box-shadow:none!important;
+  padding:12px 12px 8px!important;
+  gap:8px!important;
+}
+.brand-lockup{
+  width:max-content!important;
+  max-width:calc(100% - 12px)!important;
+  padding:8px 26px 10px!important;
+  background:linear-gradient(155deg,#242a32aa,#131b2688)!important;
+  border:1.5px solid #ad9065!important;
+  box-shadow:inset 0 0 0 3px #101925,inset 0 0 0 4px #67553c99,0 4px 14px #0004!important;
+  clip-path:polygon(10px 0,calc(100% - 10px) 0,100% 10px,100% calc(100% - 10px),calc(100% - 10px) 100%,10px 100%,0 calc(100% - 10px),0 10px)!important;
+}
+.brand-lockup::before{left:8px!important;font-size:7px!important}
+.brand-lockup::after{right:8px!important;font-size:7px!important}
+.brand-lockup h1{line-height:1!important}
+.brand-main{gap:7px!important}
+.brand-warlock{font-size:clamp(31px,4.2vw,54px)!important}
+.brand-sigil{font-size:clamp(30px,4.1vw,52px)!important}
+.brand-studio{
+  align-self:flex-start!important;
+  margin-left:clamp(80px,10vw,128px)!important;
+  margin-top:2px!important;
+  font-size:clamp(13px,1.55vw,20px)!important;
+  letter-spacing:.14em!important;
+}
+header nav{margin:0!important;padding:0!important;border:0!important;background:transparent!important;box-shadow:none!important;gap:12px!important}
+header nav button{min-width:122px;border-radius:7px}
+@media(max-width:700px){
+ header{padding:9px 8px 7px!important;gap:7px!important}
+ .brand-lockup{padding:7px 18px 9px!important}
+ .brand-warlock{font-size:clamp(27px,8vw,38px)!important}
+ .brand-sigil{font-size:clamp(28px,8vw,40px)!important}
+ .brand-studio{margin-left:clamp(64px,20vw,95px)!important;font-size:clamp(12px,3.5vw,16px)!important}
+}
+ .unified-color h2{display:flex;align-items:baseline;justify-content:space-between;gap:8px;flex-wrap:wrap}.unified-color h2 .sub{font-size:11px;letter-spacing:0;text-transform:none;font-weight:400}.unified-color .selection-tools{margin:12px 0}.unified-color .selection-tools button{font-size:12px;padding:8px}.unified-color #pixelEditor.open{border-top:1px solid #304254;padding-top:8px;margin-top:10px}.unified-color #selectionTags{margin:3px 0 7px}.unified-color .compact-bright{margin:8px 0}.unified-color .compact-bright input{display:block}.unified-color .color-picker-row{display:flex;align-items:center;gap:8px;margin:13px 0}.unified-color .color-name{margin-left:0}.unified-color #pixelEditor .row{margin:10px 0} </style></head><body><header><div class="brand-lockup"><h1><span class="brand-main"><span class="brand-sigil">✧</span><span class="brand-warlock">Warlock</span></span><span class="brand-studio">Glove Studio</span></h1></div><nav><button id="showStudio" class="active">3D Studio</button><button id="showCode">Code Generator</button></nav></header><main><aside><section class="panel effect-panel"><h2>ANIMATION EFFECT</h2><div class="effect-grid"><button class="effect active" data-effect="fire" aria-label="Fire" title="Fire"><span aria-hidden="true">🔥</span></button><button class="effect" data-effect="charge" aria-label="Lightning" title="Lightning"><span aria-hidden="true">⚡</span></button><button class="effect" data-effect="rainbow" aria-label="Magic" title="Magic"><span aria-hidden="true">🌈</span></button></div><div id="effectCaption" class="effect-caption" aria-live="polite">Fire</div></section><section class="panel unified-color"><h2>COLOR STUDIO <span id="selected" class="sub">— select a pixel</span></h2><p class="notice" id="ledhelp">Click an LED on the glove to inspect its live color. Shift-click or enable Multi-select to edit several.</p><div class="row selection-tools"><button id="multiToggle" type="button" aria-pressed="false">＋ Multi-select: Off</button><button id="clearSelection" type="button">Clear selection</button></div><div id="pixelEditor"><p id="selectionTags"></p><label class="compact-bright">Pixel brightness <span id="pixelBrightLabel">100%</span><input id="pixelBright" type="range" min="0" max="100" value="100"></label><div class="row"><button id="applyPixel" type="button">Apply color</button><button id="resetPixel" type="button">Follow animation</button></div><input type="color" id="pixelColor" value="#ff7b20" class="hidden" aria-hidden="true" tabindex="-1"></div><div class="color-picker-row"><input id="rgb" type="color" value="#ff7b20" aria-label="Selected pixel color"><span id="colorName" class="color-name">Select an LED to sample its color</span></div><label>Red <input id="red" type="range" min="0" max="255" value="255"></label><label>Green <input id="green" type="range" min="0" max="255" value="123"></label><label>Blue <input id="blue" type="range" min="0" max="255" value="32"></label><p class="notice" id="colorHint">Select a pixel to sample its live color and edit it here.</p></section></aside><div><section id="stage"><div id="selectionOverlay" aria-hidden="true"></div><canvas id="viewer" aria-label="Interactive 3D glove model"></canvas><div id="loading">Loading 3D viewer…</div><img id="refimg" src="actual_glove_reference.jpg" alt="Photograph of actual right-hand glove with LEDs and wiring"></section><section id="codepanel" class="panel"><h2>CODE GENERATOR</h2><p class="notice">Generate an Arduino sketch from your current effect, speed, brightness, flame limit, flicker, and color settings. The generator is an experimental translation of the current controls; the Original Source button displays your uploaded Correct V4 master firmware. Pixel overrides are preview-only and are not exported to firmware.</p><div class="row" style="margin:12px 0"><button id="generateCode" type="button" class="generate-btn">✧ Generate Arduino Code</button><span id="generatorStatus" class="notice" aria-live="polite">Generate to update the source below.</span></div><textarea id="code" spellcheck="false"></textarea><div class="row" style="margin-top:9px"><button id="saveCode">Download generated .ino</button><button id="restoreCode">View original source</button></div><p class="notice danger">The generated sketch uses five thumb LEDs and six on each other finger (29 total). Check pin assignments, library versions and gesture behavior before uploading to hardware.</p></section></div><aside class="right"><section class="panel"><h2>ANIMATION CONTROLS</h2><label><span class="range">Speed <b id="speedV">1.0×</b></span><input id="speed" type="range" min="1" max="30" value="10"></label><label><span class="range">Brightness <b id="brightV">85%</b></span><input id="bright" type="range" min="0" max="100" value="85"></label><label><span class="range">Flame limit <b id="heightV">5</b></span><input id="height" type="range" min="1" max="6" value="5"></label><label><span class="range">Flicker <b id="flickerV">60%</b></span><input id="flicker" type="range" min="0" max="100" value="60"></label><p class="notice">Fire now uses randomized ignition and flicker from your original Arduino sketch. The Flicker slider applies to other previews only; Fire randomness is controlled by firmware.</p><div class="row"><button id="play">⏸ Pause</button><button id="cast">Cast</button><button id="stop">■ Off</button></div></section></aside></main><footer>Mouse drag to orbit • scroll to zoom • right-drag to pan. Offline 3D viewer: no internet or CDN required. Mouse drag to orbit; scroll to zoom.</footer><script>const ORIGINAL_CODE="#include <Wire.h>\n#include <Adafruit_NeoPixel.h>\n#include <SparkFunLSM6DS3.h>\n#include <math.h>\n\n// ======================================\n// WARLOCK GLOVE V4\n// Three modes - No buttons\n// XIAO ESP32-C3 + LSM6DS3\n// ======================================\n\n// CONFIRMED WORKING GPIO PINS\n#define THUMB_PIN    3\n#define POINTER_PIN  4\n#define MIDDLE_PIN   5\n#define RING_PIN     6\n#define PINKY_PIN    21\n\n#define SDA_PIN 9\n#define SCL_PIN 10\n\n#define NUM_FINGERS 5\n#define NUM_LEDS 6\n\n// ======================================\n// BRIGHTNESS / POWER\n// ======================================\n\n#define FIRE_BRIGHTNESS 85\n#define MAGIC_BRIGHTNESS 85\n#define LIGHTNING_BRIGHTNESS 100\n\n#define FRAME_TIME 40\n\n// ======================================\n// GESTURE CONFIGURATION\n// ======================================\n\n// Our previously measured flick:\n// 2.5-3g and 800-1000 deg/sec\n\n#define ACCEL_THRESHOLD 2.0\n#define GYRO_THRESHOLD 600.0\n\n// IMPORTANT:\n// Select which signed gyro axis corresponds\n// to the outward flick.\n//\n// 0 = X\n// 1 = Y\n// 2 = Z\n//\n// First test with the Serial Monitor.\n// Change these if necessary.\n\n#define FLICK_AXIS 0\n#define FLICK_DIRECTION 1\n\n// Direction is +1 or -1.\n\n// Gesture timing\n#define FLICK_RELEASE_MS 180\n#define FLICK_GROUP_GAP_MS 650\n#define GESTURE_COOLDOWN_MS 1200\n\n// ======================================\n// FIRE CONFIGURATION\n// ======================================\n\n#define IGNITION_CHANCE 12\n\n// ======================================\n// LED OBJECTS\n// ======================================\n\nAdafruit_NeoPixel thumb(\n  NUM_LEDS, THUMB_PIN, NEO_GRB + NEO_KHZ800\n);\n\nAdafruit_NeoPixel pointer(\n  NUM_LEDS, POINTER_PIN, NEO_GRB + NEO_KHZ800\n);\n\nAdafruit_NeoPixel middle(\n  NUM_LEDS, MIDDLE_PIN, NEO_GRB + NEO_KHZ800\n);\n\nAdafruit_NeoPixel ringFinger(\n  NUM_LEDS, RING_PIN, NEO_GRB + NEO_KHZ800\n);\n\nAdafruit_NeoPixel pinky(\n  NUM_LEDS, PINKY_PIN, NEO_GRB + NEO_KHZ800\n);\n\nAdafruit_NeoPixel* fingers[NUM_FINGERS] = {\n  &thumb,\n  &pointer,\n  &middle,\n  &ringFinger,\n  &pinky\n};\n\nLSM6DS3 imu(I2C_MODE, 0x6B);\n\n// ======================================\n// MODES\n// ======================================\n\nenum GloveMode {\n  FIRE_MODE,\n  LIGHTNING_MODE,\n  MAGIC_MODE\n};\n\nGloveMode currentMode = FIRE_MODE;\n\nenum GloveState {\n  STANDBY,\n  CASTING,\n  TRANSITIONING\n};\n\nGloveState gloveState = STANDBY;\n\n// ======================================\n// FIRE DATA - PRESERVED FROM V2\n// ======================================\n\nstruct Flame {\n  bool active;\n  float position;\n  float speed;\n  float intensity;\n  float decay;\n  int maxHeight;\n};\n\nFlame flames[NUM_FINGERS];\n\n// ======================================\n// GESTURE DATA\n// ======================================\n\nint flickCount = 0;\n\nbool flickLatched = false;\n\nunsigned long lastFlickTime = 0;\nunsigned long releaseStart = 0;\nunsigned long gestureCooldownUntil = 0;\n\nfloat gyroValues[3] = {0, 0, 0};\n\n// ======================================\n// TIMING\n// ======================================\n\nunsigned long lastFrame = 0;\n\n// ======================================\n// HELPERS\n// ======================================\n\nvoid showAll() {\n  for (int f = 0; f < NUM_FINGERS; f++) {\n    fingers[f]->show();\n  }\n}\n\nvoid clearAll() {\n  for (int f = 0; f < NUM_FINGERS; f++) {\n    fingers[f]->clear();\n  }\n  showAll();\n}\n\nvoid setAll(uint8_t r, uint8_t g, uint8_t b) {\n  for (int f = 0; f < NUM_FINGERS; f++) {\n    fingers[f]->fill(\n      fingers[f]->Color(r, g, b)\n    );\n  }\n  showAll();\n}\n\nvoid setBrightnessAll(uint8_t brightness) {\n  for (int f = 0; f < NUM_FINGERS; f++) {\n    fingers[f]->setBrightness(brightness);\n  }\n}\n\nvoid setPixelAll(\n  int led,\n  uint8_t r,\n  uint8_t g,\n  uint8_t b\n) {\n  for (int f = 0; f < NUM_FINGERS; f++) {\n    fingers[f]->setPixelColor(\n      led,\n      fingers[f]->Color(r, g, b)\n    );\n  }\n}\n\n// ======================================\n// FIRE COLOR - V2\n// ======================================\n\nuint32_t fireColor(\n  Adafruit_NeoPixel* strip,\n  float intensity\n) {\n\n  intensity = constrain(intensity, 0, 255);\n\n  uint8_t red;\n  uint8_t green;\n  uint8_t blue = 0;\n\n  if (intensity < 80) {\n    red = intensity * 1.5;\n    green = intensity * 0.12;\n  }\n  else if (intensity < 170) {\n    red = intensity;\n    green = (intensity - 50) * 0.35;\n  }\n  else {\n    red = 255;\n    green = (intensity - 100) * 0.65;\n  }\n\n  return strip->Color(red, green, blue);\n}\n\n// ======================================\n// FIRE IGNITION - V2\n// ======================================\n\nvoid igniteFlame(int f) {\n\n  flames[f].active = true;\n  flames[f].position = 1.5;\n\n  flames[f].speed = random(5, 13) / 100.0;\n  flames[f].intensity = random(100, 190);\n  flames[f].decay = random(2, 6) / 10.0;\n\n  int chance = random(100);\n\n  if (chance < 35) {\n    flames[f].maxHeight = 3;\n  }\n  else if (chance < 75) {\n    flames[f].maxHeight = 4;\n  }\n  else {\n    flames[f].maxHeight = 5;\n  }\n}\n\n// ======================================\n// BASE FIRE - V2\n// ======================================\n\nvoid drawBaseFire(Adafruit_NeoPixel* strip) {\n\n  float base1 = random(45, 90);\n  float base2 = random(75, 140);\n  float base3 = random(15, 95);\n\n  strip->setPixelColor(\n    0, fireColor(strip, base1)\n  );\n\n  strip->setPixelColor(\n    1, fireColor(strip, base2)\n  );\n\n  strip->setPixelColor(\n    2, fireColor(strip, base3)\n  );\n}\n\n// ======================================\n// FIRE STANDBY - V2\n// ======================================\n\nvoid updateFire() {\n\n  for (int f = 0; f < NUM_FINGERS; f++) {\n\n    Adafruit_NeoPixel* strip = fingers[f];\n\n    strip->clear();\n    drawBaseFire(strip);\n\n    Flame &flame = flames[f];\n\n    if (!flame.active) {\n      if (random(1000) < IGNITION_CHANCE) {\n        igniteFlame(f);\n      }\n    }\n\n    if (flame.active) {\n\n      flame.position += flame.speed;\n\n      if (flame.position < 3.5) {\n        flame.intensity += random(1, 5);\n      }\n      else {\n        flame.intensity -= flame.decay * 3;\n      }\n\n      flame.intensity = constrain(\n        flame.intensity, 0, 230\n      );\n\n      for (int i = 2; i < NUM_LEDS; i++) {\n\n        float distance = flame.position - i;\n        float brightness = 0;\n\n        if (\n          distance >= -0.5 &&\n          distance <= 0.5\n        ) {\n          brightness = flame.intensity;\n        }\n        else if (\n          distance > 0.5 &&\n          distance < 2.5\n        ) {\n          brightness =\n            flame.intensity *\n            (1.0 - distance / 2.5);\n        }\n\n        if (brightness > 0) {\n          brightness *=\n            random(75, 111) / 100.0;\n        }\n\n        brightness = constrain(\n          brightness, 0, 255\n        );\n\n        if (brightness > 0) {\n          strip->setPixelColor(\n            i,\n            fireColor(strip, brightness)\n          );\n        }\n      }\n\n      if (\n        flame.position > flame.maxHeight ||\n        flame.intensity < 15\n      ) {\n        flame.active = false;\n      }\n    }\n\n    strip->show();\n  }\n}\n\n// ======================================\n// LIGHTNING STANDBY\n// Slow crystal-blue breathing\n// ======================================\n\nvoid updateLightningStandby() {\n\n  float t = millis() / 1000.0;\n\n  float pulse =\n    (sin(t * 2.3) + 1.0) * 0.5;\n\n  int base = 12 + pulse * 50;\n\n  for (int f = 0; f < NUM_FINGERS; f++) {\n\n    Adafruit_NeoPixel* strip = fingers[f];\n\n    for (int i = 0; i < NUM_LEDS; i++) {\n\n      int flicker = random(-8, 9);\n\n      int brightness = constrain(\n        base + flicker,\n        2,\n        90\n      );\n\n      // Small, occasional electrical sparks\n      if (random(1000) < 12) {\n        brightness = random(100, 170);\n      }\n\n      strip->setPixelColor(\n        i,\n        strip->Color(\n          brightness / 10,\n          brightness / 2,\n          brightness\n        )\n      );\n    }\n\n    strip->show();\n  }\n}\n\n// ======================================\n// MAGIC STANDBY\n// Independent rainbow color breathing\n// ======================================\n\nvoid updateMagicStandby() {\n\n  float t = millis() / 1000.0;\n\n  for (int f = 0; f < NUM_FINGERS; f++) {\n\n    Adafruit_NeoPixel* strip = fingers[f];\n\n    for (int i = 0; i < NUM_LEDS; i++) {\n\n      float wave =\n        (sin(t * 1.5 + f * 1.4 + i * 0.9)\n        + 1.0) * 0.5;\n\n      uint16_t hue =\n        (uint16_t)(\n          millis() * 8 +\n          f * 11000 +\n          i * 5500\n        );\n\n      uint8_t value =\n        35 + wave * 145;\n\n      uint32_t color =\n        strip->ColorHSV(\n          hue,\n          255,\n          value\n        );\n\n      strip->setPixelColor(\n        i,\n        strip->gamma32(color)\n      );\n    }\n\n    strip->show();\n  }\n}\n\n// ======================================\n// FIREBALL SPELL\n// ======================================\n\nvoid castFireball() {\n\n  gloveState = CASTING;\n\n  setBrightnessAll(FIRE_BRIGHTNESS);\n\n  // Gather fire energy\n  for (int stage = 0; stage < 15; stage++) {\n\n    int intensity = 35 + stage * 12;\n\n    clearAll();\n\n    for (int f = 0; f < NUM_FINGERS; f++) {\n\n      Adafruit_NeoPixel* strip = fingers[f];\n\n      strip->setPixelColor(\n        0,\n        strip->Color(\n          intensity,\n          intensity / 5,\n          0\n        )\n      );\n\n      strip->setPixelColor(\n        1,\n        strip->Color(\n          intensity,\n          intensity / 3,\n          0\n        )\n      );\n\n      strip->setPixelColor(\n        2,\n        strip->Color(\n          intensity,\n          intensity / 4,\n          0\n        )\n      );\n    }\n\n    showAll();\n    delay(35);\n  }\n\n  // Fireball shoots toward fingertips\n  for (int led = 0; led < NUM_LEDS; led++) {\n\n    for (int f = 0; f < NUM_FINGERS; f++) {\n\n      Adafruit_NeoPixel* strip = fingers[f];\n\n      strip->clear();\n\n      strip->setPixelColor(\n        led,\n        strip->Color(255, 170, 12)\n      );\n\n      if (led > 0) {\n        strip->setPixelColor(\n          led - 1,\n          strip->Color(220, 50, 0)\n        );\n      }\n\n      if (led > 1) {\n        strip->setPixelColor(\n          led - 2,\n          strip->Color(90, 5, 0)\n        );\n      }\n    }\n\n    showAll();\n    delay(45);\n  }\n\n  // Ember fade\n  for (int b = 100; b >= 0; b -= 5) {\n\n    setAll(b * 2, b / 3, 0);\n    delay(20);\n  }\n\n  clearAll();\n\n  gloveState = STANDBY;\n}\n\n// ======================================\n// LIGHTNING CHARGE - V3 STYLE\n// ======================================\n\nvoid lightningCharge() {\n\n  unsigned long start = millis();\n\n  while (millis() - start < 1500) {\n\n    float progress =\n      (millis() - start) / 1500.0;\n\n    int brightness =\n      20 + progress * 110;\n\n    brightness += random(-20, 25);\n\n    brightness = constrain(\n      brightness, 5, 150\n    );\n\n    setAll(\n      0,\n      brightness * 0.65,\n      brightness\n    );\n\n    delay(40 - progress * 25);\n  }\n}\n\n// ======================================\n// LIGHTNING STRIKE - V3 STYLE\n// ======================================\n\nvoid lightningStrike() {\n\n  for (int led = 0; led < NUM_LEDS; led++) {\n\n    for (int f = 0; f < NUM_FINGERS; f++) {\n\n      Adafruit_NeoPixel* strip = fingers[f];\n\n      strip->clear();\n\n      strip->setPixelColor(\n        led,\n        strip->Color(255, 255, 255)\n      );\n\n      if (led > 0) {\n        strip->setPixelColor(\n          led - 1,\n          strip->Color(20, 90, 255)\n        );\n      }\n\n      if (led > 1) {\n        strip->setPixelColor(\n          led - 2,\n          strip->Color(0, 20, 90)\n        );\n      }\n\n      strip->show();\n    }\n\n    delay(20);\n  }\n\n  clearAll();\n}\n\n// ======================================\n// COMPLETE LIGHTNING SPELL\n// ======================================\n\nvoid castLightning() {\n\n  gloveState = CASTING;\n\n  clearAll();\n\n  setBrightnessAll(LIGHTNING_BRIGHTNESS);\n\n  lightningCharge();\n\n  for (int strike = 0; strike < 3; strike++) {\n\n    lightningStrike();\n\n    delay(100);\n  }\n\n  for (int b = 80; b >= 0; b -= 4) {\n    setAll(0, b / 2, b);\n    delay(20);\n  }\n\n  clearAll();\n\n  gloveState = STANDBY;\n}\n\n// ======================================\n// MAGIC BLAST\n// ======================================\n\nvoid castMagicBlast() {\n\n  gloveState = CASTING;\n\n  setBrightnessAll(MAGIC_BRIGHTNESS);\n\n  // Energy gathering\n  for (int stage = 0; stage < 18; stage++) {\n\n    for (int f = 0; f < NUM_FINGERS; f++) {\n\n      Adafruit_NeoPixel* strip = fingers[f];\n\n      for (int i = 0; i < NUM_LEDS; i++) {\n\n        uint16_t hue =\n          (uint16_t)(\n            millis() * 20 +\n            f * 9000 +\n            i * 6000\n          );\n\n        int value = 40 + stage * 11;\n\n        strip->setPixelColor(\n          i,\n          strip->ColorHSV(\n            hue,\n            255,\n            constrain(value, 0, 255)\n          )\n        );\n      }\n    }\n\n    showAll();\n    delay(35);\n  }\n\n  // Rainbow energy wave\n  for (int led = 0; led < NUM_LEDS; led++) {\n\n    for (int f = 0; f < NUM_FINGERS; f++) {\n\n      Adafruit_NeoPixel* strip = fingers[f];\n\n      strip->clear();\n\n      uint16_t hue =\n        (uint16_t)(\n          f * 12000 +\n          led * 7500\n        );\n\n      strip->setPixelColor(\n        led,\n        strip->ColorHSV(\n          hue,\n          180,\n          255\n        )\n      );\n\n      if (led > 0) {\n        strip->setPixelColor(\n          led - 1,\n          strip->ColorHSV(\n            hue + 5000,\n            255,\n            130\n          )\n        );\n      }\n    }\n\n    showAll();\n    delay(55);\n  }\n\n  // Shimmering fingertips\n  for (int frame = 0; frame < 12; frame++) {\n\n    clearAll();\n\n    for (int f = 0; f < NUM_FINGERS; f++) {\n\n      Adafruit_NeoPixel* strip = fingers[f];\n\n      strip->setPixelColor(\n        NUM_LEDS - 1,\n        strip->ColorHSV(\n          random(65536),\n          150,\n          random(100, 255)\n        )\n      );\n    }\n\n    showAll();\n    delay(45);\n  }\n\n  clearAll();\n\n  gloveState = STANDBY;\n}\n\n// ======================================\n// MODE TRANSITION\n// ======================================\n\nvoid transitionMode() {\n\n  gloveState = TRANSITIONING;\n\n  clearAll();\n\n  currentMode =\n    (GloveMode)((currentMode + 1) % 3);\n\n  if (currentMode == FIRE_MODE) {\n\n    setBrightnessAll(FIRE_BRIGHTNESS);\n\n    for (int i = 0; i < NUM_LEDS; i++) {\n\n      clearAll();\n\n      for (int j = 0; j <= i; j++) {\n        setPixelAll(j, 180, 30, 0);\n      }\n\n      showAll();\n      delay(75);\n    }\n\n    Serial.println(\"MODE: FIRE\");\n  }\n\n  else if (currentMode == LIGHTNING_MODE) {\n\n    setBrightnessAll(LIGHTNING_BRIGHTNESS);\n\n    for (int i = 0; i < NUM_LEDS; i++) {\n\n      clearAll();\n\n      setPixelAll(i, 0, 130, 255);\n\n      showAll();\n      delay(65);\n    }\n\n    Serial.println(\"MODE: LIGHTNING\");\n  }\n\n  else {\n\n    setBrightnessAll(MAGIC_BRIGHTNESS);\n\n    for (int i = 0; i < NUM_LEDS; i++) {\n\n      clearAll();\n\n      for (int f = 0; f < NUM_FINGERS; f++) {\n\n        fingers[f]->setPixelColor(\n          i,\n          fingers[f]->ColorHSV(\n            f * 12000 + i * 6000,\n            255,\n            255\n          )\n        );\n      }\n\n      showAll();\n      delay(75);\n    }\n\n    Serial.println(\"MODE: MAGIC HANDS\");\n  }\n\n  clearAll();\n\n  gloveState = STANDBY;\n}\n\n// ======================================\n// CAST CURRENT SPELL\n// ======================================\n\nvoid castCurrentSpell() {\n\n  if (currentMode == FIRE_MODE) {\n    Serial.println(\"CAST: FIREBALL\");\n    castFireball();\n  }\n\n  else if (currentMode == LIGHTNING_MODE) {\n    Serial.println(\"CAST: LIGHTNING\");\n    castLightning();\n  }\n\n  else {\n    Serial.println(\"CAST: MAGIC BLAST\");\n    castMagicBlast();\n  }\n}\n\n// ======================================\n// READ GESTURE\n// ======================================\n\nvoid updateGesture() {\n\n  if (gloveState != STANDBY) return;\n\n  unsigned long now = millis();\n\n  if (now < gestureCooldownUntil) return;\n\n  float ax = imu.readFloatAccelX();\n  float ay = imu.readFloatAccelY();\n  float az = imu.readFloatAccelZ();\n\n  float gx = imu.readFloatGyroX();\n  float gy = imu.readFloatGyroY();\n  float gz = imu.readFloatGyroZ();\n\n  gyroValues[0] = gx;\n  gyroValues[1] = gy;\n  gyroValues[2] = gz;\n\n  float acceleration =\n    sqrt(ax * ax + ay * ay + az * az);\n\n  float signedRotation =\n    gyroValues[FLICK_AXIS] *\n    FLICK_DIRECTION;\n\n  float rotationMagnitude =\n    sqrt(gx * gx + gy * gy + gz * gz);\n\n  // A qualifying outward flick\n  bool flickDetected =\n    acceleration > ACCEL_THRESHOLD &&\n    rotationMagnitude > GYRO_THRESHOLD &&\n    signedRotation > GYRO_THRESHOLD;\n\n  // Re-arm only after the selected axis\n  // has settled for a short interval.\n  bool settled =\n    fabs(gyroValues[FLICK_AXIS]) < 100.0;\n\n  if (!flickLatched && flickDetected) {\n\n    flickLatched = true;\n\n    flickCount++;\n    lastFlickTime = now;\n    releaseStart = 0;\n\n    Serial.print(\"FLICK COUNT: \");\n    Serial.println(flickCount);\n\n    if (flickCount >= 3) {\n\n      flickCount = 0;\n\n      transitionMode();\n\n      gestureCooldownUntil =\n        millis() + GESTURE_COOLDOWN_MS;\n\n      flickLatched = true;\n      releaseStart = 0;\n\n      return;\n    }\n  }\n\n  if (flickLatched) {\n\n    if (settled) {\n\n      if (releaseStart == 0) {\n        releaseStart = now;\n      }\n\n      if (\n        now - releaseStart >=\n        FLICK_RELEASE_MS\n      ) {\n        flickLatched = false;\n        releaseStart = 0;\n      }\n    }\n    else {\n      releaseStart = 0;\n    }\n  }\n\n  // Interpret the completed sequence\n  if (\n    flickCount > 0 &&\n    now - lastFlickTime >\n    FLICK_GROUP_GAP_MS\n  ) {\n\n    int completedFlicks = flickCount;\n\n    flickCount = 0;\n\n    if (completedFlicks == 1) {\n\n      castCurrentSpell();\n\n      gestureCooldownUntil =\n        millis() + GESTURE_COOLDOWN_MS;\n\n      flickLatched = true;\n      releaseStart = 0;\n    }\n    else {\n      Serial.println(\n        \"Two flicks: sequence canceled\"\n      );\n    }\n  }\n}\n\n// ======================================\n// SETUP\n// ======================================\n\nvoid setup() {\n\n  Serial.begin(115200);\n\n  Wire.begin(SDA_PIN, SCL_PIN);\n\n  if (imu.begin() != 0) {\n    Serial.println(\n      \"LSM6DS3 initialization failed!\"\n    );\n    while (1) {\n      delay(100);\n    }\n  }\n\n  randomSeed(micros());\n\n  for (int f = 0; f < NUM_FINGERS; f++) {\n\n    fingers[f]->begin();\n    fingers[f]->setBrightness(\n      FIRE_BRIGHTNESS\n    );\n\n    fingers[f]->clear();\n    fingers[f]->show();\n\n    flames[f].active = false;\n    flames[f].position = 0;\n    flames[f].intensity = 0;\n  }\n\n  Serial.println();\n  Serial.println(\"======================\");\n  Serial.println(\"WARLOCK GLOVE V4 READY\");\n  Serial.println(\"======================\");\n\n  Serial.println(\"Starting mode: FIRE\");\n  Serial.println(\"One flick: Cast spell\");\n  Serial.println(\"Three flicks: Next mode\");\n}\n\n// ======================================\n// MAIN LOOP\n// ======================================\n\nvoid loop() {\n\n  updateGesture();\n\n  unsigned long now = millis();\n\n  if (\n    gloveState == STANDBY &&\n    now - lastFrame >= FRAME_TIME\n  ) {\n\n    lastFrame = now;\n\n    if (currentMode == FIRE_MODE) {\n      updateFire();\n    }\n\n    else if (currentMode == LIGHTNING_MODE) {\n      updateLightningStandby();\n    }\n\n    else {\n      updateMagicStandby();\n    }\n  }\n\n  delay(5);\n}";</script><script>
+// Generator uses the uploaded firmware as its base. All modifications are visible in the output.
+function makeWarlockFirmware(){
+ const s=window.warlockSettings();
+ let code=ORIGINAL_CODE;
+ const macro=(name,value)=>{const rx=new RegExp('(#define\\s+'+name+'\\s+)\\S+');if(!rx.test(code))throw Error('Missing '+name);code=code.replace(rx,(_,prefix)=>prefix+value)};
+ const clamp=(v,a,b)=>Math.min(b,Math.max(a,v));
+ const speed=clamp(s.speed,.1,3), bright=Math.round(clamp(s.brightness,0,1)*255);
+ macro('MAX_BRIGHTNESS',bright);
+ macro('LIGHTNING_BRIGHTNESS',Math.min(180,Math.round(bright*1.18)));
+ macro('FRAME_TIME',Math.round(clamp(40/speed,13,400)));
+ macro('IGNITION_CHANCE',Math.round(clamp(12*speed,1,60)));
+ macro('CHARGE_DURATION',Math.round(clamp(1500/speed,500,8000)));
+ macro('STRIKE_STEP',Math.round(clamp(20/speed,7,200)));
+ macro('STRIKE_PAUSE',Math.round(clamp(100/speed,30,1200)));
+ // The physical thumb has 5 LEDs, while the original sketch defined 6.
+ code=code.replace(/Adafruit_NeoPixel thumb\(\s*NUM_LEDS, THUMB_PIN/, 'Adafruit_NeoPixel thumb(\n  5, THUMB_PIN');
+ // Flame height and flicker are new firmware-level controls, injected into original fire algorithm.
+ code=code.replace('#define IGNITION_CHANCE', '#define USER_FLAME_LIMIT '+Math.round(clamp(s.height,1,6))+'\n#define USER_FLICKER '+Math.round(clamp(s.flicker,0,1)*100)+'\n#define IGNITION_CHANCE');
+ code=code.replace('flame.position > flame.maxHeight ||','flame.position > min(flame.maxHeight, USER_FLAME_LIMIT) ||');
+ // Retain randomized flicker but control the deviation around 100%.
+ code=code.replace('random(75, 111) / 100.0', '(100 + (random(-25, 11) * USER_FLICKER / 60.0)) / 100.0');
+ const effect={fire:0,charge:1,rainbow:2}[s.effect]??0;
+ const rgb=s.color.map(v=>Math.round(clamp(v,0,255)));
+ const extra=`
+// ===== WARLOCK STUDIO GENERATED CONFIGURATION =====
+// Effect: ${s.effect} | speed: ${speed.toFixed(2)}x | brightness: ${Math.round(s.brightness*100)}%
+// Flame limit: ${s.height} | flicker: ${Math.round(s.flicker*100)}%
+#define STUDIO_MODE ${effect} // 0=fire, 1=lightning, 2=rainbow
+#define STUDIO_RED ${rgb[0]}
+#define STUDIO_GREEN ${rgb[1]}
+#define STUDIO_BLUE ${rgb[2]}
+
+// New studio spells: original firmware only supplied castLightning().
+// Fireball and rainbow pulse are additional routines, not verbatim originals.
+void studioFireball(){
+  for(int step=0;step<9;step++){
+    for(int f=0;f<NUM_FINGERS;f++){
+      int count=f==0?5:NUM_LEDS;
+      for(int i=0;i<count;i++){
+        int distance=abs(i-step);
+        int heat=max(0,255-distance*100-step*16);
+        int jitter=random(75,111);
+        heat=heat*jitter/100;
+        fingers[f]->setPixelColor(i,fingers[f]->Color(heat,min(255,heat*2/3),heat/18));
+      }
+      fingers[f]->show();
+    }
+    delay(max(12,FRAME_TIME));
+  }
+  setAll(0,0,0);
+}
+void studioRainbowCast(){
+  for(int step=0;step<42;step++){
+    float envelope=sin(3.1415926f*step/42.0f);
+    for(int f=0;f<NUM_FINGERS;f++){
+      int count=f==0?5:NUM_LEDS;
+      for(int i=0;i<count;i++){
+        uint8_t hue=(uint8_t)(step*7+f*35+i*20);
+        uint8_t r,g,b;
+        if(hue<85){r=255-hue*3;g=hue*3;b=0;}
+        else if(hue<170){hue-=85;r=0;g=255-hue*3;b=hue*3;}
+        else{hue-=170;r=hue*3;g=0;b=255-hue*3;}
+        fingers[f]->setPixelColor(i,fingers[f]->Color((uint8_t)(r*envelope),(uint8_t)(g*envelope),(uint8_t)(b*envelope)));
+      }
+      fingers[f]->show();
+    }
+    delay(max(12,FRAME_TIME));
+  }
+  setAll(0,0,0);
+}
+void studioChargeLoop(){
+  static unsigned long lastTick=0;
+  if(millis()-lastTick<FRAME_TIME)return;
+  lastTick=millis();
+  float pulse=(sin(millis()*0.003f)+1.0f)*0.5f;
+  setAll((uint8_t)(STUDIO_RED*pulse),(uint8_t)(STUDIO_GREEN*pulse),(uint8_t)(STUDIO_BLUE*pulse));
+}
+void studioRainbowLoop(){
+  static unsigned long lastTick=0;
+  if(millis()-lastTick<FRAME_TIME)return;
+  lastTick=millis();
+  static uint8_t phase=0;phase+=3;
+  for(int f=0;f<NUM_FINGERS;f++){
+    for(int i=0;i<(f==0?5:NUM_LEDS);i++){
+      uint8_t h=phase+f*28+i*18;
+      // Integer RGB color wheel; no additional LED library required.
+      uint8_t r,g,b;
+      if(h<85){r=255-h*3;g=h*3;b=0;}
+      else if(h<170){h-=85;r=0;g=255-h*3;b=h*3;}
+      else{h-=170;r=h*3;g=0;b=255-h*3;}
+      fingers[f]->setPixelColor(i,fingers[f]->Color(r,g,b));
+    }
+    fingers[f]->show();
+  }
+}
+`;
+ // Place declarations before setup; preserve all original functions and gesture handling.
+ code=code.replace('void setup() {',extra+'\nvoid setup() {');
+ code=code.replace('void loop() {','void loop() {\n#if STUDIO_MODE == 0\n  updateFire();\n#elif STUDIO_MODE == 1\n  studioChargeLoop();\n#elif STUDIO_MODE == 2\n  studioRainbowLoop();\n#endif\n  if(millis()-lastGesture>GESTURE_COOLDOWN && detectGesture()){\n#if STUDIO_MODE == 0\n    studioFireball();\n#elif STUDIO_MODE == 1\n    castLightning();\n#elif STUDIO_MODE == 2\n    studioRainbowCast();\n#endif\n    lastGesture=millis();\n  }\n  delay(FRAME_TIME);\n  return;');
+ return '// Generated by Warlock Glove Studio. Review and test before flashing.\n'+code;
+}
+</script><script type="module">
+const $=id=>document.getElementById(id);const ledIds=['Thumb','Index','Middle','Ring','Pinky'].flatMap(f=>Array.from({length:f==='Thumb'?5:6},(_,i)=>'LED_'+f.toUpperCase()+'_'+String(i+1).padStart(2,'0')));const state={effect:'fire',playing:!matchMedia('(prefers-reduced-motion: reduce)').matches,speed:1,brightness:.85,height:5,flicker:.6,color:[255,123,32],appearance:'studio',selected:null};$('code').value=ORIGINAL_CODE;window.warlockSettings=()=>({...state,color:[...state.color]});$('generateCode').addEventListener('click',()=>{try{$('code').value=makeWarlockFirmware();$('generatorStatus').textContent='Generated from current settings — ready to review and download.'}catch(e){$('generatorStatus').textContent='Generation error: '+e.message}});let three,renderer,scene,camera,controls,glove,emitters={},lights=[],elapsed=0,last=0;let castStart=-1,castMode=null;
+function download(name,data,type){let blob=new Blob([data],{type}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(url),3000)}function colorHex(){return '#'+state.color.map(v=>Math.max(0,Math.min(255,v)).toString(16).padStart(2,'0')).join('')};function describeColor(c){let [r,g,b]=c,m=Math.max(...c),n=Math.min(...c);if(m<28)return "Near black";if(m-n<18)return m>220?"Soft white":m>130?"Cool gray":"Charcoal";let hue=(Math.atan2(Math.sqrt(3)*(g-b),2*r-g-b)*180/Math.PI+360)%360;let name=hue<15||hue>=345?"Red":hue<42?"Orange":hue<65?"Golden yellow":hue<85?"Yellow-green":hue<160?"Green":hue<195?"Turquoise":hue<245?"Blue":hue<285?"Violet":hue<325?"Magenta":"Rose";return (m<110?"Deep ":m>220&&n>110?"Soft ":"")+name.toLowerCase().replace(/^./,x=>x.toUpperCase())} function rgbToHex(c){return '#'+c.map(v=>Math.max(0,Math.min(255,Math.round(v))).toString(16).padStart(2,'0')).join('')}
+function activeColor(){if(selectedLEDs.size){const id=[...selectedLEDs][0],o=pixelOverrides[id],m=emitters[id];if(o)return o.color.slice();if(m&&m.lit)return m.lit.map(v=>Math.round(Math.max(0,Math.min(1,v))*255))}return state.color.slice()}
+function updateColor(c=activeColor()){const h=rgbToHex(c);$('rgb').value=h;$('colorName').textContent=(selectedLEDs.size?([...selectedLEDs].length===1?'Selected pixel · ':'Selected pixels · '):'Preview · ')+describeColor(c);['red','green','blue'].forEach((id,i)=>$(id).value=c[i]);$('colorHint').textContent=selectedLEDs.size?'Editing '+selectedLEDs.size+' selected pixel'+(selectedLEDs.size===1?'':'s')+' — changes appear immediately.':'Select an LED to sample its live color; RGB sliders edit the selected pixels.'}
+function editColor(c){c=c.map(v=>Math.max(0,Math.min(255,Math.round(v))));if(selectedLEDs.size){for(const id of selectedLEDs)pixelOverrides[id]={color:c.slice(),brightness:pixelOverrides[id]?.brightness??1};$('pixelColor').value=rgbToHex(c)}else state.color=c;updateColor(c)}
+function setEffect(e){castStart=-1;castMode=null;state.effect=e;document.querySelectorAll('[data-effect]').forEach(b=>b.classList.toggle('active',b.dataset.effect===e));$('effectCaption').textContent=({fire:'Fire',charge:'Lightning',rainbow:'Magic',off:'Off'})[e]||'Effect'}
+document.querySelectorAll('[data-effect]').forEach(b=>b.addEventListener('click',()=>setEffect(b.dataset.effect)));
+$('rgb').addEventListener('input',e=>{const h=e.target.value;editColor([1,3,5].map(i=>parseInt(h.slice(i,i+2),16)))});
+['red','green','blue'].forEach((id,i)=>$(id).addEventListener('input',e=>{let c=activeColor();c[i]=+e.target.value;editColor(c)}));
+[['speed','speed',v=>(v/10).toFixed(1)+'×',v=>v/10],['bright','brightness',v=>v+'%',v=>v/100],['height','height',v=>v,v=>v],['flicker','flicker',v=>v+'%',v=>v/100]].forEach(([id,key,fmt,conv])=>$(id).addEventListener('input',e=>{let v=+e.target.value;state[key]=conv(v);$(id+'V').textContent=fmt(v)}));$('play').addEventListener('click',()=>{state.playing=!state.playing;$('play').textContent=state.playing?'⏸ Pause':'▶ Play'});$('stop').addEventListener('click',()=>setEffect('off'));$('cast').addEventListener('click',()=>{if(!['fire','charge','rainbow'].includes(state.effect))return;castMode=state.effect;castStart=elapsed;state.playing=true;$('play').textContent='⏸ Pause'});function syncControls(){$('speed').value=state.speed*10;$('speedV').textContent=state.speed.toFixed(1)+'×';$('bright').value=state.brightness*100;$('brightV').textContent=Math.round(state.brightness*100)+'%';$('height').value=state.height;$('heightV').textContent=state.height;updateColor()}$('saveCode').addEventListener('click',()=>download('Warlock_Studio_Generated.ino',$('code').value,'text/plain'));$('restoreCode').addEventListener('click',()=>{$('code').value=ORIGINAL_CODE});$('showCode').addEventListener('click',()=>{$('codepanel').style.display='block';$('showCode').classList.add('active');$('showStudio').classList.remove('active');$('codepanel').scrollIntoView({behavior:'smooth',block:'start'})});$('showStudio').addEventListener('click',()=>{$('codepanel').style.display='none';$('showStudio').classList.add('active');$('showCode').classList.remove('active');$('refimg').classList.remove('show');$('viewer').style.display='block'});const selectedLEDs=new Set(),pixelOverrides={};let multiSelect=false;let updatePixelRings=()=>{};function syncPixelRings(){updatePixelRings()}
+function updateInspector(){const ids=[...selectedLEDs];state.selected=ids[0]||null;$('selected').textContent=ids.length?ids.length+' selected':'— click a pixel';$('pixelEditor').classList.toggle('open',!!ids.length);$('selectionTags').textContent=ids.map(id=>id.replace('LED_','').replace('_',' ')).join(' · ');if(ids.length){let o=pixelOverrides[ids[0]];if(o){$('pixelColor').value='#'+o.color.map(v=>v.toString(16).padStart(2,'0')).join('');$('pixelBright').value=Math.round(o.brightness*100)}else{$('pixelColor').value=rgbToHex(activeColor());$('pixelBright').value=100}$('pixelBrightLabel').textContent=$('pixelBright').value+'%'}updateColor()}
+function selectLED(id,add=false){if(!add)selectedLEDs.clear();if(add&&selectedLEDs.has(id))selectedLEDs.delete(id);else selectedLEDs.add(id);updateInspector();syncPixelRings()}
+$('multiToggle').addEventListener('click',()=>{multiSelect=!multiSelect;$('multiToggle').textContent='＋ Multi-select: '+(multiSelect?'On':'Off');$('multiToggle').setAttribute('aria-pressed',String(multiSelect));$('multiToggle').classList.toggle('active',multiSelect)});
+$('clearSelection').addEventListener('click',()=>{selectedLEDs.clear();updateInspector();syncPixelRings()});
+$('pixelBright').addEventListener('input',()=>{const level=+$('pixelBright').value/100;$('pixelBrightLabel').textContent=$('pixelBright').value+'%';const color=activeColor();for(const id of selectedLEDs){const existing=pixelOverrides[id];pixelOverrides[id]={color:existing?existing.color.slice():color.slice(),brightness:level}}});
+$('applyPixel').addEventListener('click',()=>{let hex=$('pixelColor').value,colors=[1,3,5].map(i=>parseInt(hex.slice(i,i+2),16));for(let id of selectedLEDs)pixelOverrides[id]={color:colors,brightness:+$('pixelBright').value/100};updateInspector()});
+$('resetPixel').addEventListener('click',()=>{for(let id of selectedLEDs)delete pixelOverrides[id];updateInspector()});
+// Faithful browser port of ThreeModeV1.ino fire functions. Each finger owns a Flame.
+// The original Arduino firmware advances every FRAME_TIME=40ms, not on a sine-wave clock.
+const FIRE_FRAME_MS=40, IGNITION_CHANCE=12;
+const flames=Array.from({length:5},()=>({active:false,position:0,speed:0,intensity:0,decay:0,maxHeight:5}));
+const firePixels=Array.from({length:5},(_,f)=>Array.from({length:f===0?5:6},()=>[0,0,0]));
+let fireAccumulator=0;
+const arandom=(lo,hi)=>Math.floor(Math.random()*(hi-lo))+lo; // Arduino random(lo,hi), upper bound exclusive
+function fireColor(intensity){const v=Math.max(0,Math.min(255,intensity));let r,g;if(v<80){r=v*1.5;g=v*.12}else if(v<170){r=v;g=(v-50)*.35}else{r=255;g=(v-100)*.65}return [Math.max(0,Math.min(255,Math.trunc(r))),Math.max(0,Math.min(255,Math.trunc(g))),0]}
+function igniteFlame(f){const flame=flames[f];flame.active=true;flame.position=1.5;flame.speed=arandom(5,13)/100;flame.intensity=arandom(100,190);flame.decay=arandom(2,6)/10;const chance=arandom(0,100);flame.maxHeight=chance<35?3:chance<75?4:5}
+function updateFirmwareFire(){for(let f=0;f<5;f++){const pixels=firePixels[f];for(let i=0;i<pixels.length;i++)pixels[i]=[0,0,0];
+ // drawBaseFire() in the actual firmware randomizes all three base pixels on every frame.
+ pixels[0]=fireColor(arandom(45,90));pixels[1]=fireColor(arandom(75,140));pixels[2]=fireColor(arandom(15,95));
+ const flame=flames[f];if(!flame.active&&arandom(0,1000)<IGNITION_CHANCE)igniteFlame(f);
+ if(flame.active){flame.position+=flame.speed;if(flame.position<3.5)flame.intensity+=arandom(1,5);else flame.intensity-=flame.decay*3;flame.intensity=Math.max(0,Math.min(230,flame.intensity));
+ for(let i=2;i<pixels.length;i++){const distance=flame.position-i;let brightness=0;if(distance>=-.5&&distance<=.5)brightness=flame.intensity;else if(distance>.5&&distance<2.5)brightness=flame.intensity*(1-distance/2.5);
+ if(brightness>0)brightness*=arandom(75,111)/100;brightness=Math.max(0,Math.min(255,brightness));
+ if(brightness>0)pixels[i]=fireColor(brightness)}
+ if(flame.position>Math.min(flame.maxHeight,state.height)||flame.intensity<15)flame.active=false}
+ }}
+function hsv(h,s,v){let i=Math.floor(h*6),f=h*6-i,p=v*(1-s),q=v*(1-f*s),t=v*(1-(1-f)*s);return [[v,t,p],[q,v,p],[p,v,t],[p,q,v],[t,p,v],[v,p,q]][i%6].map(x=>Math.round(x*255))}
+function drawLEDs(){if(!emitters)return;for(const id of ledIds){const m=emitters[id];if(!m)continue;const parts=id.split('_'),f=['THUMB','INDEX','MIDDLE','RING','PINKY'].indexOf(parts[1]),p=+parts[2]-1,count=f===0?5:6,t=elapsed*state.speed;let a=0,c=state.color;
+ if(state.effect==='fire'){c=firePixels[f][p];a=1}
+ else if(state.effect==='charge'){a=.2+.55*(.5+.5*Math.sin(t*3+f*.6));c=[65,155,255]}
+ else if(state.effect==='rainbow'){a=.9;c=hsv(((t*65+f*45+p*30)%360)/360,1,1)}
+ else if(state.effect==='solid')a=1;
+ // CAST is a temporary overlay, never a change of standby mode.
+ if(castStart>=0 && castMode===state.effect){
+   const age=(elapsed-castStart)*Math.max(.35,state.speed);
+   const duration=castMode==='rainbow'?1.65:castMode==='charge'?1.45:1.15;
+   if(age>=duration){castStart=-1;castMode=null;}
+   else if(castMode==='fire'){
+     // Ignition at the base, a broad irregular fireball, then ember decay.
+     const wave=age*8.5;const distance=Math.abs(p-wave+(f-2)*.15);
+     const burst=Math.max(0,1-distance/2.4)*Math.min(1,age*7)*Math.max(0,1-age/duration);
+     const jitter=.82+.18*Math.sin((f*19+p*11+Math.floor(age*35))*4.9);
+     a=Math.max(a,burst*jitter);if(burst>.05)c=p>3?[255,205,56]:[255,75+Math.round(145*burst),12];
+   }else if(castMode==='charge'){
+     // Electrical build-up followed by three discrete branching flashes.
+     const phase=age/duration;
+     const strike=Math.max(...[.40,.58,.78].map(k=>Math.max(0,1-Math.abs(phase-k)/.075)));
+     a=Math.max(.12,Math.min(1,phase*1.7)*.55,strike*(.72+.28*Math.sin(p*8+f*13+age*50)));
+     c=strike>.08?[220,244,255]:[70,140,255];
+   }else if(castMode==='rainbow'){
+     // Full-hand expanding rainbow pulse, with smooth bright crest.
+     const pulse=Math.pow(Math.max(0,Math.sin(Math.PI*age/duration)),1.4);
+     const ring=Math.max(0,1-Math.abs(p-(age/duration)*8)/3);
+     a=Math.max(a*.55,Math.min(1,.25+pulse*.8+ring*.4));
+     c=hsv(((age*180+f*52+p*28)%360)/360,1,1);
+   }
+ }
+ let gain=Math.max(0,Math.min(1,a*state.brightness));let override=pixelOverrides[id];m.lit=override?override.color.map(v=>v/255*override.brightness):c.map(v=>v/255*gain)
+ }}
+// Offline WebGL renderer: no CDN, imports, or external libraries.
+try{
+ const canvas=$('viewer'),gl=canvas.getContext('webgl',{antialias:true,alpha:false});if(!gl)throw Error('WebGL is disabled or unavailable in this browser');
+ const vs=`attribute vec3 p;attribute vec3 n;uniform mat4 mvp;uniform mat4 model;varying vec3 normal;varying vec3 surfacePos;void main(){gl_Position=mvp*vec4(p,1.);normal=mat3(model)*n;surfacePos=p;}`;
+ const fs=`precision highp float;
+varying vec3 normal;varying vec3 surfacePos;
+uniform vec3 color;uniform float glow;uniform float fabric;
+float hash(vec3 p){return fract(sin(dot(p,vec3(127.1,311.7,74.7)))*43758.5453);}
+void main(){
+ vec3 N=normalize(normal);
+ vec3 L=normalize(vec3(-0.55,0.85,1.2));
+ float diffuse=max(dot(N,L),0.0);
+ float fill=max(dot(N,normalize(vec3(0.7,-0.2,-0.5))),0.0);
+ float rim=pow(1.0-abs(dot(N,vec3(0.,0.,1.))),3.0);
+ float light=0.19+0.65*diffuse+0.17*fill+0.15*rim;
+ vec3 base=color;
+ if(fabric>0.5){
+   // Tight matte nylon weave: two interlocking thread directions plus fine irregular fibers.
+   vec3 uv=surfacePos*110.0;
+   float warp=sin(uv.x*3.14159)*sin(uv.y*3.14159);
+   float weft=sin(uv.y*3.14159)*sin(uv.z*3.14159);
+   float grain=hash(floor(uv*2.0));
+   float weave=0.86+0.075*warp+0.055*weft+0.06*grain;
+   float panelVariation=0.96+0.04*sin(surfacePos.y*5.0+surfacePos.x*11.0);
+   base*=weave*panelVariation;
+   light+=0.035*pow(max(dot(reflect(-L,N),vec3(0.,0.,1.)),0.0),9.0);
+ } else {
+   float spec=pow(max(dot(reflect(-L,N),vec3(0.,0.,1.)),0.0),24.0);
+   light+=0.14*spec;
+ }
+ gl_FragColor=vec4(base*(light+glow),1.0);
+}`;
+ function shader(type,source){const s=gl.createShader(type);gl.shaderSource(s,source);gl.compileShader(s);if(!gl.getShaderParameter(s,gl.COMPILE_STATUS))throw Error(gl.getShaderInfoLog(s));return s}
+ const program=gl.createProgram();gl.attachShader(program,shader(gl.VERTEX_SHADER,vs));gl.attachShader(program,shader(gl.FRAGMENT_SHADER,fs));gl.linkProgram(program);if(!gl.getProgramParameter(program,gl.LINK_STATUS))throw Error(gl.getProgramInfoLog(program));gl.useProgram(program);
+ const loc={p:gl.getAttribLocation(program,'p'),n:gl.getAttribLocation(program,'n'),mvp:gl.getUniformLocation(program,'mvp'),model:gl.getUniformLocation(program,'model'),color:gl.getUniformLocation(program,'color'),glow:gl.getUniformLocation(program,'glow'),fabric:gl.getUniformLocation(program,'fabric')};
+ gl.enable(gl.DEPTH_TEST);gl.clearColor(.055,.08,.12,1);
+ function matmul(a,b){let o=new Float32Array(16);for(let c=0;c<4;c++)for(let r=0;r<4;r++)for(let k=0;k<4;k++)o[c*4+r]+=a[k*4+r]*b[c*4+k];return o}
+ function ident(){return new Float32Array([1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1])}
+ function rotateX(a){let c=Math.cos(a),s=Math.sin(a);return new Float32Array([1,0,0,0,0,c,s,0,0,-s,c,0,0,0,0,1])}
+ function rotateY(a){let c=Math.cos(a),s=Math.sin(a);return new Float32Array([c,0,-s,0,0,1,0,0,s,0,c,0,0,0,0,1])}
+ function perspective(fov,aspect,near,far){let f=1/Math.tan(fov/2);return new Float32Array([f/aspect,0,0,0,0,f,0,0,0,0,(far+near)/(near-far),-1,0,0,2*far*near/(near-far),0])}
+ const resp=await fetch('mesh_data.json');if(!resp.ok)throw Error('Local model data returned HTTP '+resp.status+'. Start the local server inside the extracted folder.');const raw=await resp.json();let meshes=[]; // Use the shared emitter registry updated by drawLEDs().
+ for(let item of raw){let p=new Float32Array(item.p),n=new Float32Array(item.n),idx=item.i;let batches=[];
+ // WebGL1-compatible index batching: each triangle expanded into vertex arrays (no uint32 index extension needed).
+ let vp=new Float32Array(idx.length*3),vn=new Float32Array(idx.length*3);for(let j=0;j<idx.length;j++){let k=idx[j]*3;vp.set(p.subarray(k,k+3),j*3);vn.set(n.subarray(k,k+3),j*3)}
+ let pb=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,pb);gl.bufferData(gl.ARRAY_BUFFER,vp,gl.STATIC_DRAW);let nb=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,nb);gl.bufferData(gl.ARRAY_BUFFER,vn,gl.STATIC_DRAW);
+ let center=[0,0,0];for(let j=0;j<p.length;j+=3){center[0]+=p[j];center[1]+=p[j+1];center[2]+=p[j+2]}center=center.map(v=>v/(p.length/3));let mesh={name:item.name,pb,nb,count:idx.length,color:item.c,lit:[0,0,0],center};meshes.push(mesh);let match=item.name.match(/^LED_(THUMB|INDEX|MIDDLE|RING|PINKY)_(\d\d)_EMITTER$/);if(match)emitters['LED_'+match[1]+'_'+match[2]]=mesh;
+ }
+ if(Object.keys(emitters).length!==29)throw Error('Expected 29 LED emitters, found '+Object.keys(emitters).length);$('loading').textContent='Animation ready · '+Object.keys(emitters).length+'/29 LEDs';setTimeout(()=>$('loading').style.display='none',1600);
+ let rx=-.1,ry=0,zoom=8.5,drag=null,lastTime=0,latestMVP=null;function project(pt){if(!latestMVP)return null;let m=latestMVP,x=pt[0],y=pt[1],z=pt[2],w=m[3]*x+m[7]*y+m[11]*z+m[15];if(w<=0)return null;return {x:(m[0]*x+m[4]*y+m[8]*z+m[12])/w,y:(m[1]*x+m[5]*y+m[9]*z+m[13])/w,z:(m[2]*x+m[6]*y+m[10]*z+m[14])/w}}function pickPixel(e){const r=canvas.getBoundingClientRect(),x=((e.clientX-r.left)/r.width)*2-1,y=1-((e.clientY-r.top)/r.height)*2;let best=null,dist=Infinity;for(let id of ledIds){let m=emitters[id],p=m&&project(m.center);if(!p||p.z>1||p.z< -1)continue;let dx=(p.x-x)*r.width/2,dy=(p.y-y)*r.height/2,d=Math.hypot(dx,dy);if(d<dist){dist=d;best=id}}if(best&&dist<25)selectLED(best,e.shiftKey||e.metaKey||multiSelect)}const ringLayer=$('selectionOverlay'),rings=new Map();updatePixelRings=()=>{for(const id of [...rings.keys()])if(!selectedLEDs.has(id)){rings.get(id).remove();rings.delete(id)}for(const id of selectedLEDs){if(!rings.has(id)){let el=document.createElement('div');el.className='pixel-ring';let label=document.createElement('span');label.textContent=id.replace('LED_','').replace('_',' ');el.appendChild(label);ringLayer.appendChild(el);rings.set(id,el)}let m=emitters[id],pt=m&&project(m.center),el=rings.get(id);if(!pt||pt.z< -1||pt.z>1){el.style.display='none';continue}el.style.display='block';el.style.left=((pt.x+1)*50)+'%';el.style.top=((1-pt.y)*50)+'%'}};const views={back:[-.1,0],palm:[-.1,Math.PI],left:[-.1,-Math.PI/2],right:[-.1,Math.PI/2],tip:[-Math.PI/2,0]};
+ 
+ canvas.addEventListener('pointerdown',e=>{drag={x:e.clientX,y:e.clientY,moved:false};canvas.setPointerCapture(e.pointerId)});canvas.addEventListener('pointermove',e=>{if(!drag){const r=canvas.getBoundingClientRect(),x=((e.clientX-r.left)/r.width)*2-1,y=1-((e.clientY-r.top)/r.height)*2;let near=ledIds.some(id=>{let m=emitters[id],q=m&&project(m.center);return q&&q.z>=-1&&q.z<=1&&Math.hypot((q.x-x)*r.width/2,(q.y-y)*r.height/2)<22});canvas.style.cursor=near?'pointer':'grab';return;}let dx=e.clientX-drag.x,dy=e.clientY-drag.y;if(Math.hypot(dx,dy)>3)drag.moved=true;ry+=dx*.008;rx+=dy*.008;drag.x=e.clientX;drag.y=e.clientY});canvas.addEventListener('pointerup',e=>{if(drag&&!drag.moved)pickPixel(e);drag=null});canvas.addEventListener('pointercancel',()=>drag=null);
+ canvas.addEventListener('pointerleave',()=>{if(!drag)canvas.style.cursor='grab'});canvas.addEventListener('wheel',e=>{e.preventDefault();zoom=Math.max(3,Math.min(16,zoom+e.deltaY*.009))},{passive:false});
+ 
+ function frame(ms){let dt=Math.min(.07,(ms-lastTime)/1000||0);lastTime=ms;if(state.playing){elapsed+=dt;fireAccumulator+=dt*1000*state.speed;let steps=0;while(fireAccumulator>=FIRE_FRAME_MS&&steps++<12){updateFirmwareFire();fireAccumulator-=FIRE_FRAME_MS}if(steps>12)fireAccumulator=0}drawLEDs();const w=canvas.clientWidth,h=canvas.clientHeight;if(w&&h){let dpr=Math.min(devicePixelRatio||1,2),W=Math.round(w*dpr),H=Math.round(h*dpr);if(canvas.width!==W||canvas.height!==H){canvas.width=W;canvas.height=H;gl.viewport(0,0,W,H)}}
+ let bg=[.025,.03,.045];gl.clearColor(...bg,1);gl.clear(gl.COLOR_BUFFER_BIT|gl.DEPTH_BUFFER_BIT);
+ let rot=matmul(rotateX(rx),rotateY(ry)),model=rot.slice();model[12]=0;model[13]=-.1;model[14]=-zoom;
+ let proj=perspective(.72,canvas.width/Math.max(1,canvas.height),.1,100),mvp=matmul(proj,model);latestMVP=mvp;updatePixelRings();gl.uniformMatrix4fv(loc.mvp,false,mvp);gl.uniformMatrix4fv(loc.model,false,rot);
+ for(const mesh of meshes){gl.bindBuffer(gl.ARRAY_BUFFER,mesh.pb);gl.enableVertexAttribArray(loc.p);gl.vertexAttribPointer(loc.p,3,gl.FLOAT,false,0,0);gl.bindBuffer(gl.ARRAY_BUFFER,mesh.nb);gl.enableVertexAttribArray(loc.n);gl.vertexAttribPointer(loc.n,3,gl.FLOAT,false,0,0);let selected=selectedLEDs.has(mesh.name.replace('_EMITTER',''))&&mesh.name.endsWith('_EMITTER');let c=mesh.name.endsWith('_EMITTER')?mesh.lit:mesh.color;gl.uniform3fv(loc.color,c);gl.uniform1f(loc.glow,mesh.name.endsWith('_EMITTER')?1.5+(selected?.8:0):0);gl.uniform1f(loc.fabric,mesh.name.startsWith('FABRIC_')?1:0);gl.drawArrays(gl.TRIANGLES,0,mesh.count)}requestAnimationFrame(frame)}requestAnimationFrame(frame);
+}catch(err){$('loading').textContent='Offline viewer error: '+String(err.message||err);console.error(err)}
+</script></body></html>
