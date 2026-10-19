@@ -1,0 +1,49 @@
+{
+  "format": "warlock-studio-animation",
+  "version": 6,
+  "effect": "rainbow",
+  "engine": "magic-prism-shimmer-v2",
+  "controls": {
+    "speed": 10,
+    "bright": 100,
+    "height": 5,
+    "flicker": 60
+  },
+  "magicProfile": {
+    "name": "4500K Prism Shimmer v2 \u2014 15\u201390 Breath",
+    "baseColor": [
+      255,
+      218,
+      187
+    ],
+    "pulse": {
+      "periodSeconds": 1.25,
+      "minBrightness": 0.15,
+      "maxBrightness": 0.9,
+      "easePower": 1.18
+    },
+    "shimmer": {
+      "rainbowShare": 0.2,
+      "windowSeconds": 0.22,
+      "crossfade": 0.78,
+      "saturation": 0.92,
+      "hueDriftDegreesPerSecond": 24,
+      "minColorMix": 0.72,
+      "maxColorMix": 1.0
+    }
+  },
+  "magicCastProfile": {
+    "name": "Fingertip Collapse + White Ascension v2 \u2014 Long Dark Hold",
+    "collapseSeconds": 1.5,
+    "darkHoldSeconds": 0.75,
+    "blastSeconds": 1.0,
+    "riseFraction": 0.28,
+    "fullWhiteHoldFraction": 0.12,
+    "edgeSoftness": 0.22,
+    "blastColor": [
+      255,
+      255,
+      255
+    ]
+  }
+}
